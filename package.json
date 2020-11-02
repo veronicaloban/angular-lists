@@ -59,8 +59,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "ng lint"
+    "*.{ts,html}": [
+      "npm run lint"
     ]
   }
 }
