@@ -29,7 +29,12 @@
         ],
         "createDefaultProgram": true
       },
-      "extends": ["plugin:@angular-eslint/recommended"],
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
       "rules": {
         /**
          * Any TypeScript related rules you wish to use/reconfigure over and above the

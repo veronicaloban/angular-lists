@@ -25,7 +25,7 @@ describe('AppComponent', () => {
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
+    const compiled: HTMLElement = <HTMLElement>fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('eslint app is running!');
   });
 });

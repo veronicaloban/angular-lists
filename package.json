@@ -6,8 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "eslint src/app/",
+    "e2e": "ng e2e",
+    "precommit": "lint-staged"
   },
   "private": true,
   "dependencies": {
@@ -55,12 +56,10 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run precommit"
     }
   },
   "lint-staged": {
-    "*.{ts,html}": [
-      "npm run lint"
-    ]
+    "*.ts": "eslint src/app/"
   }
 }
