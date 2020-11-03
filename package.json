@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "eslint src/app/",
+    "lint": "ng lint",
     "e2e": "ng e2e",
     "precommit": "lint-staged"
   },
@@ -60,6 +60,6 @@
     }
   },
   "lint-staged": {
-    "*.ts": "eslint src/app/"
+    "*.{ts,html}": "eslint src/app/"
   }
 }
