@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "precommit": "lint-staged",
-    "json-server": "json-server --watch api/db.json"
+    "json-server": "json-server --watch ./db.json",
+    "json-server-node": "node server.js"
   },
   "private": true,
   "dependencies": {
