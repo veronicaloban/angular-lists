@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ListInterface } from '../listInterface';
 
 @Component({
   selector: 'app-list',
@@ -6,9 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  @Input() public name: string;
-  @Input() public completedItems: number;
-  @Input() public items: number;
+  @Input() public list: ListInterface;
 
   public ngOnInit(): void {
   }
