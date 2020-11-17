@@ -1,6 +1,6 @@
 export interface ListInterface {
-  id: number,
+  id: string,
   name: string,
-  items: number,
-  completedItems: number
+  items: string,
+  completedItems: string
 }

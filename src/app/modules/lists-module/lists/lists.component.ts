@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ListsServiceService } from '../lists-service.service';
 import { ListInterface } from '../listInterface';
-import { Config } from '../config';
 
 @Component({
   selector: 'app-lists',
@@ -9,7 +9,7 @@ import { Config } from '../config';
   styleUrls: ['./lists.component.scss'],
 })
 export class ListsComponent implements OnInit {
-  public lists: ListInterface[] = [];
+  public lists: Observable<ListInterface[]>;
 
   constructor(private listsService: ListsServiceService) { }
 
@@ -18,12 +18,6 @@ export class ListsComponent implements OnInit {
   }
 
   showLists(): void {
-    this.listsService.getLists()
-      .subscribe((data: Config[]) => data.map((item: Config) => this.lists.push({
-        id: +item.id,
-        name: item.name,
-        items: +item.items,
-        completedItems: +item.completedItems,
-      })));
+    this.lists = this.listsService.getLists();
   }
 }
