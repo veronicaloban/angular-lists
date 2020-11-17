@@ -9,7 +9,7 @@ import { ListInterface } from '../listInterface';
   styleUrls: ['./lists.component.scss'],
 })
 export class ListsComponent implements OnInit {
-  public lists: Observable<ListInterface[]>;
+  public lists$: Observable<ListInterface[]>;
 
   constructor(private listsService: ListsServiceService) { }
 
@@ -18,6 +18,6 @@ export class ListsComponent implements OnInit {
   }
 
   private showLists(): void {
-    this.lists = this.listsService.getLists();
+    this.lists$ = this.listsService.getLists$();
   }
 }

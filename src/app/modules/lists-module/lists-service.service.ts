@@ -12,7 +12,7 @@ export class ListsServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public getLists(): Observable<ListInterface[]> {
+  public getLists$(): Observable<ListInterface[]> {
     return this.http.get<ListInterface[]>(this.url);
   }
 }
