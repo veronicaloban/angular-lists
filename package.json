@@ -66,6 +66,6 @@
     }
   },
   "lint-staged": {
-    "*.{ts,html}": "eslint src/"
+    "src/*.": "eslint src/"
   }
 }

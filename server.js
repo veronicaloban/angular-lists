@@ -9,8 +9,8 @@ server.use(middlewares);
 
 server.get('/lists', (req, res) => {
   db.lists.forEach((list) => {
-    list.total = db.list.filter(item => item.listsId === list.id).length;
-    list.completed = db.list.filter(item => item.listsId === list.id && item.completed).length;
+    list.total = db.list.filter(item => item.listId === list.id).length;
+    list.completed = db.list.filter(item => item.listId === list.id && item.completed).length;
   });
 
   // console.log(db);
