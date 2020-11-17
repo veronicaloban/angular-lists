@@ -1,0 +1,36 @@
+{
+  "lists": [
+    {
+      "id": 1,
+      "name": "Первый",
+      "total": 10,
+      "completed": 5
+    },
+    {
+      "id": 2,
+      "name": "Второй",
+      "total": 20,
+      "completed": 10
+    }
+  ],
+  "list": [
+    {
+      "id": 1,
+      "name": "Вложенный 1",
+      "completed": true,
+      "listId": 1
+    },
+    {
+      "id": 2,
+      "name": "Вложенный 2",
+      "completed": false,
+      "listId": 1
+    },
+    {
+      "id": 3,
+      "name": "Вложенный 3",
+      "completed": false,
+      "listId": 2
+    }
+  ]
+}
