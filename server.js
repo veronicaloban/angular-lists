@@ -13,7 +13,6 @@ server.get('/lists', (req, res) => {
     list.completed = db.list.filter(item => item.listId === list.id && item.completed).length;
   });
 
-  // console.log(db);
   res.jsonp(db.lists);
 });
 
