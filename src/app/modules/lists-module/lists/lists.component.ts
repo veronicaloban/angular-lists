@@ -13,11 +13,11 @@ export class ListsComponent implements OnInit {
 
   constructor(private listsService: ListsServiceService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.showLists();
   }
 
-  showLists(): void {
+  private showLists(): void {
     this.lists = this.listsService.getLists();
   }
 }

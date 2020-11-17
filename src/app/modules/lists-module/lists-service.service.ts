@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ListInterface } from './listInterface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ListsServiceService {
-  url = `${environment.apiUrl}/lists`;
+  private url = `${environment.apiUrl}/lists`;
 
   constructor(private http: HttpClient) { }
 
-  getLists() {
-    return this.http.get(this.url);
+  public getLists(): Observable<ListInterface[]> {
+    return this.http.get<ListInterface[]>(this.url);
   }
 }

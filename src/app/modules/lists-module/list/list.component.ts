@@ -6,10 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  @Input() name: string;
-  @Input() completedItems: number;
-  @Input() items: number;
+  @Input() public name: string;
+  @Input() public completedItems: number;
+  @Input() public items: number;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 }
