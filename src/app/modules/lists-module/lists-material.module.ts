@@ -14,4 +14,4 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
 })
-export class MaterialModule {}
+export class ListsMaterialModule {}

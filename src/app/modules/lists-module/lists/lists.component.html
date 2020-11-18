@@ -1,3 +1,5 @@
+<h1 class="lists__title">{{title}}</h1>
+
 <div *ngFor="let list of lists$ | async">
   <app-list [list]="list"></app-list>
 </div>

@@ -1,27 +1,28 @@
 .list {
   display: grid;
-  grid-template-columns: 90% 5% 5%;
+  grid-template-columns: auto 40px 40px;
   grid-template-rows: 40px auto;
   grid-row-gap: 10px;
   margin: 10px;
-}
 
-.list__name {
-  grid-area: 1 / 1 / 2 / 2;
-}
+  .list__progress-bar {
+    grid-area: 2 / 1 / 3 / 4;
+  };
 
-.list__list-progress {
-  grid-area: 1 / 2 / 2 / 3;
-}
+  .list__progress {
+    color: #d1c4e9;
+    font-size: 20px;
+  };
 
-.list__menu-button {
-  grid-area: 1 / 3 / 2 / 4
-}
+  .list__name, .list__progress {
+    line-height: 40px;
+  };
 
-.list__list-progress-bar {
-  grid-area: 2 / 1 / 3 / 4;
-}
+  .list__all-items-done {
+    color: #673ab7;
+  }
 
-.list__name, .list__list-progress {
-  line-height: 40px;
+  button:hover {
+    background-color: rgb(239, 239, 239);
+  }
 }
