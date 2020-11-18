@@ -1,0 +1,27 @@
+.list {
+  display: grid;
+  grid-template-columns: 90% 5% 5%;
+  grid-template-rows: 40px auto;
+  grid-row-gap: 10px;
+  margin: 10px;
+}
+
+.list__name {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.list__list-progress {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.list__menu-button {
+  grid-area: 1 / 3 / 2 / 4
+}
+
+.list__list-progress-bar {
+  grid-area: 2 / 1 / 3 / 4;
+}
+
+.list__name, .list__list-progress {
+  line-height: 40px;
+}

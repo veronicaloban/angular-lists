@@ -1,4 +1,11 @@
-<div class="list">
-  <h2>{{list.name}}</h2>
-  <div>{{list.completed}}/{{list.total}}</div>
-</div>
+<mat-card class="list">
+    <mat-card-title class="list__name">{{list.name}}</mat-card-title>
+      <mat-card-content class="list__list-progress">{{list.completed}}/{{list.total}}</mat-card-content>
+      <div class="list__menu-button">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu"></mat-menu>
+      </div>
+  <mat-progress-bar class="list__list-progress-bar" mode="determinate" [value]="(list.completed*100)/list.total"></mat-progress-bar>
+</mat-card>
