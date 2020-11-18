@@ -60,7 +60,7 @@
         ],
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "linebreak-style": "off",
-        "max-len": ["error", { "code": 140 }],
+        "max-len": ["error", { "code": 120 }],
         "no-console": ["error", { "allow": ["warn", "error"] }],
         "import/prefer-default-export": "off",
         "class-methods-use-this": "off",
