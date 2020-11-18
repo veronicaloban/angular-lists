@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ListInterface } from '../listInterface';
+import { ListInterface } from '../list';
 
 @Component({
   selector: 'app-list',
