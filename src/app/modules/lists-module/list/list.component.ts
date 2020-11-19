@@ -11,4 +11,12 @@ export class ListComponent implements OnInit {
 
   public ngOnInit(): void {
   }
+
+  public get listProgress(): number {
+    return (this.list.completed * 100) / this.list.total;
+  }
+
+  public get isEverythingDone(): boolean {
+    return this.listProgress === 100;
+  }
 }

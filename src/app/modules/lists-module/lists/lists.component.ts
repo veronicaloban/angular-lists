@@ -10,6 +10,7 @@ import { ListInterface } from '../list';
   providers: [ListsServiceService],
 })
 export class ListsComponent implements OnInit {
+  public title = 'Мои списки';
   public lists$: Observable<ListInterface[]>;
 
   constructor(private listsService: ListsServiceService) { }
