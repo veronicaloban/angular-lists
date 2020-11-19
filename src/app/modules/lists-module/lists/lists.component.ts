@@ -19,7 +19,7 @@ export class ListsComponent implements OnInit {
     this.showLists();
   }
 
-  private showLists(): void {
+  public showLists(): void {
     this.lists$ = this.listsService.getLists$();
   }
 }
