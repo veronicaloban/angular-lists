@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListComponent } from './list.component';
 import { ListsMaterialModule } from '../lists-material.module';
@@ -13,8 +13,8 @@ describe('ListComponent', () => {
     id: 1, name: 'Second', total: 10, completed: 10,
   };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ListComponent],
       imports: [ListsMaterialModule],
     })
@@ -24,7 +24,7 @@ describe('ListComponent', () => {
         component.list = list1;
         fixture.detectChanges();
       });
-  }));
+  });
 
   it('should create a component', () => {
     expect(component).toBeTruthy();

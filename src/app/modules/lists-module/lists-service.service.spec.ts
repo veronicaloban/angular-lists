@@ -27,11 +27,11 @@ describe('ListsServiceService', () => {
     ];
 
     service.getLists$()
-      .subscribe((data) => {
-        expect(data[0].id).toEqual(1);
-        expect(data[0].name).toEqual('Первый');
-        expect(data[0].total).toEqual(2);
-        expect(data[0].completed).toEqual(1);
+      .subscribe(([data]) => {
+        expect(data.id).toEqual(1);
+        expect(data.name).toEqual('Первый');
+        expect(data.total).toEqual(2);
+        expect(data.completed).toEqual(1);
       });
 
     const req = httpTestingController.expectOne(
