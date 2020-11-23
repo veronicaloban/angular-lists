@@ -151,7 +151,8 @@
       "env": { "jasmine": true },
       // Отключим правило "no-unused-vars"
       "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-floating-promises": "off"
       }
     }
   ]
