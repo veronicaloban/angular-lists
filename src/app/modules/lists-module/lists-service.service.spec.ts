@@ -1,43 +1,44 @@
 import { TestBed } from '@angular/core/testing';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ListsServiceService } from './lists-service.service';
+import { ListInterface } from './list';
 
 describe('ListsServiceService', () => {
-  let service: ListsServiceService;
-  let httpTestingController: HttpTestingController;
+  let service;
+  const data = [{
+    id: 1,
+    name: 'First',
+    total: 10,
+    completed: 5,
+  }];
+  let listsBehaviorSubj: BehaviorSubject<ListInterface[]>;
+  let lists: Observable<ListInterface[]>;
+  let dataStore: { lists: ListInterface[] };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ListsServiceService],
-      imports: [HttpClientTestingModule],
-    });
-    httpTestingController = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(ListsServiceService);
+    TestBed.configureTestingModule({});
+    service = jasmine.createSpyObj('ListServiceService', ['getLists', 'postNewList']);
+    service.getLists.and.returnValue(of(data));
+    service.postNewList.and.returnValue(of(data));
+
+    listsBehaviorSubj = new BehaviorSubject<ListInterface[]>([]);
+    dataStore = { lists: [] };
+    lists = listsBehaviorSubj.asObservable();
   });
 
-  it('returned Observable should match the right data', () => {
-    const mockList = [
-      {
-        id: 1,
-        name: 'Первый',
-        total: 2,
-        completed: 1,
-      },
-    ];
+  it('should get data from the server, push it to the array, and pass it to the observable', () => {
+    service.getLists().subscribe((resData: ListInterface): void => {
+      dataStore.lists.push(resData);
+      listsBehaviorSubj.next(({ ...dataStore }).lists);
+    });
+    lists.subscribe((res) => expect(res.length).toBe(1));
+  });
 
-    service.getLists$()
-      .subscribe(([data]) => {
-        expect(data.id).toEqual(1);
-        expect(data.name).toEqual('Первый');
-        expect(data.total).toEqual(2);
-        expect(data.completed).toEqual(1);
-      });
-
-    const req = httpTestingController.expectOne(
-      'http://localhost:3000/lists',
-    );
-
-    req.flush(mockList);
+  it('should post data to the server, push it to the array, and pass it to the observable', () => {
+    service.postNewList().subscribe((resData: ListInterface): void => {
+      dataStore.lists.push(resData);
+      listsBehaviorSubj.next(({ ...dataStore }).lists);
+    });
+    lists.subscribe((res) => expect(res.length).toBe(1));
   });
 });

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListsServiceService } from '../lists-service.service';
 import { ListInterface } from '../list';
@@ -7,11 +7,15 @@ import { ListInterface } from '../list';
   selector: 'app-lists',
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.scss'],
-  providers: [ListsServiceService],
 })
-export class ListsComponent {
+export class ListsComponent implements OnInit {
   public title = 'Мои списки';
-  public lists$: Observable<ListInterface[]> = this.listsService.getLists$();
+  public lists$: Observable<ListInterface[]>;
 
-  constructor(private listsService: ListsServiceService) { }
+  constructor(private listsService: ListsServiceService) {}
+
+  public ngOnInit(): void {
+    this.lists$ = this.listsService.lists;
+    this.listsService.getLists$();
+  }
 }
