@@ -5,35 +5,39 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateNewListFormComponent } from './create-new-list-form.component';
-import { ListsServiceService } from '../lists-service.service';
+import { CreateListFormComponent } from './create-list-form.component';
+import { ListsService } from '../lists.service';
 
 describe('CreateNewListComponent', () => {
-  let component: CreateNewListFormComponent;
-  let fixture: ComponentFixture<CreateNewListFormComponent>;
+  let component: CreateListFormComponent;
+  let fixture: ComponentFixture<CreateListFormComponent>;
   let debugElement: DebugElement;
-  let mockDialogRef = {
-    close: jasmine.createSpy('close'),
-  };;
+  let mockDialogRef;
 
   beforeEach(async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    mockDialogRef = {
+      close: jasmine.createSpy('close'),
+    };
     await TestBed.configureTestingModule({
-      declarations: [CreateNewListFormComponent],
+      declarations: [CreateListFormComponent],
       imports: [HttpClientModule, BrowserAnimationsModule],
       providers: [
         {
           provide: MatDialogRef,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           useValue: mockDialogRef,
         },
-        ListsServiceService],
+        ListsService],
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateNewListFormComponent);
+    fixture = TestBed.createComponent(CreateListFormComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
+
     fixture.detectChanges();
   });
 
@@ -42,18 +46,18 @@ describe('CreateNewListComponent', () => {
   });
 
   it('should close the dialog form when Cancel button is clicked', () => {
-    const cancelButton = debugElement.query(By.css('.create-new-list__cancel'));
+    const cancelButton = debugElement.query(By.css('.create-list__cancel'));
 
     cancelButton.triggerEventHandler('click', null);
 
-    expect(mockDialogRef.close).toHaveBeenCalled();
+    expect(mockDialogRef.close).toHaveBeenCalledWith();
   });
 
   it('should close the dialog form when Create button is clicked', () => {
-    const createButton = debugElement.query(By.css('.create-new-list__create'));
+    const createButton = debugElement.query(By.css('.create-list__create'));
 
     createButton.triggerEventHandler('click', null);
 
-    expect(mockDialogRef.close).toHaveBeenCalled();
+    expect(mockDialogRef.close).toHaveBeenCalledWith();
   });
 });

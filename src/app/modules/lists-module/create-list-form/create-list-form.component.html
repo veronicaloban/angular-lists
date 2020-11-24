@@ -1,0 +1,15 @@
+<div class="create-list">
+  <div mat-dialog-content>
+    <h3 class="create-list__header">Новый список:</h3>
+
+    <mat-form-field>
+      <mat-label>Введите название списка</mat-label>
+      <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="create-list__cancel" mat-button (click)="onCancel()">Отмена</button>
+    <button class="create-list__create" mat-button (click)="onCreateList(data)">Создать</button>
+  </div>
+</div>

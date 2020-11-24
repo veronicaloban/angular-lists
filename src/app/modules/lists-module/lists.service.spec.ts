@@ -3,7 +3,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { ListInterface } from './list';
 
-describe('ListsServiceService', () => {
+describe('ListsService', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   let service;
   const data = [{
     id: 1,
@@ -13,32 +14,35 @@ describe('ListsServiceService', () => {
   }];
   let listsBehaviorSubj: BehaviorSubject<ListInterface[]>;
   let lists: Observable<ListInterface[]>;
-  let dataStore: { lists: ListInterface[] };
+  let listsStore: ListInterface[];
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = jasmine.createSpyObj('ListServiceService', ['getLists', 'postNewList']);
-    service.getLists.and.returnValue(of(data));
-    service.postNewList.and.returnValue(of(data));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    service = jasmine.createSpyObj('ListService', ['getLists$', 'createList$']);
+    service.getLists$.and.returnValue(of(data));
+    service.createList$.and.returnValue(of(data));
 
     listsBehaviorSubj = new BehaviorSubject<ListInterface[]>([]);
-    dataStore = { lists: [] };
+    listsStore = [];
     lists = listsBehaviorSubj.asObservable();
   });
 
   it('should get data from the server, push it to the array, and pass it to the observable', () => {
-    service.getLists().subscribe((resData: ListInterface): void => {
-      dataStore.lists.push(resData);
-      listsBehaviorSubj.next(({ ...dataStore }).lists);
-    });
+    service.getLists$().subscribe((res: ListInterface[]) => res.forEach((resData: ListInterface) => {
+      listsStore.push(resData);
+      listsBehaviorSubj.next(listsStore);
+    }));
+
     lists.subscribe((res) => expect(res.length).toBe(1));
   });
 
   it('should post data to the server, push it to the array, and pass it to the observable', () => {
-    service.postNewList().subscribe((resData: ListInterface): void => {
-      dataStore.lists.push(resData);
-      listsBehaviorSubj.next(({ ...dataStore }).lists);
+    service.createList$().subscribe((resData: ListInterface): void => {
+      listsStore.push(resData);
+      listsBehaviorSubj.next(listsStore);
     });
+
     lists.subscribe((res) => expect(res.length).toBe(1));
   });
 });

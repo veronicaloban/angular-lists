@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { ListsComponent } from './lists/lists.component';
 import { ListComponent } from './list/list.component';
-import { CreateNewListFormComponent } from './create-new-list-form/create-new-list-form.component';
-import { CreateNewListButtonComponent } from './create-new-list-button/create-new-list-button.component';
-import { ListsServiceService } from './lists-service.service';
+import { CreateListFormComponent } from './create-list-form/create-list-form.component';
+import { CreateListButtonComponent } from './create-list-button/create-list-button.component';
+import { ListsService } from './lists.service';
 
 import { ListsRoutingModule } from './lists-routing.module';
 import { ListsMaterialModule } from './lists-material.module';
 
 @NgModule({
-  declarations: [ListsComponent, ListComponent, CreateNewListButtonComponent, CreateNewListFormComponent],
+  declarations: [ListsComponent, ListComponent, CreateListButtonComponent, CreateListFormComponent],
   imports: [
     CommonModule,
     ListsRoutingModule,
@@ -20,6 +20,6 @@ import { ListsMaterialModule } from './lists-material.module';
     FormsModule,
   ],
   exports: [ListsComponent],
-  providers: [ListsServiceService],
+  providers: [ListsService],
 })
 export class ListsModule { }

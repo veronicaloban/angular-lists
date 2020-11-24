@@ -2,28 +2,28 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateNewListButtonComponent } from './create-new-list-button.component';
+import { CreateListButtonComponent } from './create-list-button.component';
 import { ListsMaterialModule } from '../lists-material.module';
 
-describe('CreateNewListButtonComponent', () => {
-  let component: CreateNewListButtonComponent;
-  let fixture: ComponentFixture<CreateNewListButtonComponent>;
+describe('CreateListButtonComponent', () => {
+  let component: CreateListButtonComponent;
+  let fixture: ComponentFixture<CreateListButtonComponent>;
   let debugElement: DebugElement;
   let dialog: MatDialog;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreateNewListButtonComponent],
+      declarations: [CreateListButtonComponent],
       imports: [ListsMaterialModule],
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateNewListButtonComponent);
+    fixture = TestBed.createComponent(CreateListButtonComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    dialog = TestBed.get(MatDialog);
+    dialog = <MatDialog>TestBed.get(MatDialog);
     fixture.detectChanges();
   });
 
@@ -36,7 +36,7 @@ describe('CreateNewListButtonComponent', () => {
     const button = debugElement.query(By.css('button'));
 
     button.triggerEventHandler('click', null);
-
-    expect(dialog.open).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(dialog.open).toHaveBeenCalledWith();// с bind тест падает
   });
 });
