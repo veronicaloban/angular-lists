@@ -8,7 +8,7 @@ import { ListsService } from '../lists.service';
   styleUrls: ['./create-list-form.component.scss'],
 })
 export class CreateListFormComponent {
-  public data = { name: '' };
+  public name = '';
 
   constructor(public dialogRef: MatDialogRef<CreateListFormComponent>, public listsService: ListsService) { }
 
@@ -20,9 +20,9 @@ export class CreateListFormComponent {
     this.closeDialog();
   }
 
-  public onCreateList(data: {name: string}): void {
-    if (data.name.length !== 0) {
-      this.listsService.createList$(data);
+  public onCreateList(): void {
+    if (this.name.length !== 0) {
+      this.listsService.createList$({ name: this.name });
       this.closeDialog();
     }
   }
