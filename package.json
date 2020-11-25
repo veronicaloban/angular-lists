@@ -9,7 +9,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "precommit": "lint-staged",
-    "json-server": "json-server --watch ./db.json",
     "json-server-node": "node server.js"
   },
   "private": true,
