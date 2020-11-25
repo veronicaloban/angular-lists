@@ -1,32 +1,38 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
+import { ListsService } from '../lists.service';
 import { ListsComponent } from './lists.component';
+import { ListInterface } from '../list';
 
 describe('ListsComponent', () => {
   let component: ListsComponent;
   let fixture: ComponentFixture<ListsComponent>;
-  const listsArray = [{
+  let lists$: Observable<ListInterface[]>;
+  let service;
+  let serviceLists$: Observable<ListInterface[]>;
+  const dataArray = [{
     id: 1,
     name: 'First',
-    total: 10,
-    completed: 5,
+    completed: 10,
+    total: 5,
   }];
-  let listService;
 
   beforeEach(async () => {
+    service = jasmine.createSpyObj('ListService', ['getLists$']);
     await TestBed.configureTestingModule({
       declarations: [ListsComponent],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [HttpClientModule],
+      providers: [ListsService],
     })
       .compileComponents().then(() => {
         fixture = TestBed.createComponent(ListsComponent);
         component = fixture.componentInstance;
-        listService = jasmine.createSpyObj('ListServiceService', ['getLists']);
-        listService.getLists.and.returnValue(of(listsArray));
+        service.getLists$.and.returnValue(of(dataArray));
+        serviceLists$ = of(dataArray);
         fixture.detectChanges();
       });
   });
@@ -35,12 +41,9 @@ describe('ListsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return the first object in an array based on the service data', () => {
-    listService.getLists().subscribe(([result]) => {
-      expect(result.id).toBe(1);
-      expect(result.name).toBe('First');
-      expect(result.total).toBe(10);
-      expect(result.completed).toBe(5);
-    });
+  it('should receive data via Lists Service', () => {
+    lists$ = serviceLists$;
+
+    lists$.subscribe((data) => { expect(data.length).toBe(1); });
   });
 });
