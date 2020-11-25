@@ -10,7 +10,15 @@
       <mat-icon>more_vert</mat-icon>
     </button>
 
-    <mat-menu #menu="matMenu"></mat-menu>
+    <mat-menu #menu="matMenu">
+      <button class="list__edit" mat-menu-item (click)="openEditDialog()">
+        <span>Редактировать</span>
+      </button>
+
+      <button class="list__delete" mat-menu-item (click)="deleteList()">
+        <span>Удалить</span>
+      </button>
+    </mat-menu>
   </div>
 
   <mat-progress-bar class="list__progress-bar" mode="determinate" [value]="listProgress"></mat-progress-bar>

@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ListInterface } from '../list';
+import { ListsService } from '../lists.service';
+import { EditListFormComponent } from '../edit-list-form/edit-list-form.component';
 
 @Component({
   selector: 'app-list',
@@ -8,6 +11,8 @@ import { ListInterface } from '../list';
 })
 export class ListComponent implements OnInit {
   @Input() public list: ListInterface;
+
+  constructor(private listsService: ListsService, private editDialog: MatDialog) {}
 
   public ngOnInit(): void {
   }
@@ -18,5 +23,17 @@ export class ListComponent implements OnInit {
 
   public get isEverythingDone(): boolean {
     return this.listProgress === 100;
+  }
+
+  public openEditDialog(): void {
+    this.editDialog.open(EditListFormComponent, {
+      data: {
+        listRef: this.list,
+      },
+    });
+  }
+
+  public deleteList(): void {
+    this.listsService.deleteList$(this.list);
   }
 }
