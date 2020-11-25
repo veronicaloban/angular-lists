@@ -21,9 +21,7 @@ export class CreateListFormComponent {
   }
 
   public onCreateList(data: {name: string}): void {
-    if (data.name.length === 0) {
-      this.closeDialog();
-    } else {
+    if (data.name.length !== 0) {
       this.listsService.createList$(data);
       this.closeDialog();
     }

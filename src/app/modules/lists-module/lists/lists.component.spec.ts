@@ -21,7 +21,6 @@ describe('ListsComponent', () => {
   }];
 
   beforeEach(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     service = jasmine.createSpyObj('ListService', ['getLists$']);
     await TestBed.configureTestingModule({
       declarations: [ListsComponent],

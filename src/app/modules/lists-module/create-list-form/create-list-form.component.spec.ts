@@ -15,7 +15,6 @@ describe('CreateNewListComponent', () => {
   let mockDialogRef;
 
   beforeEach(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     mockDialogRef = {
       close: jasmine.createSpy('close'),
     };
@@ -25,7 +24,6 @@ describe('CreateNewListComponent', () => {
       providers: [
         {
           provide: MatDialogRef,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           useValue: mockDialogRef,
         },
         ListsService],

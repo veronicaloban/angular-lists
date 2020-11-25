@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ListInterface } from './list';
 
 describe('ListsService', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   let service;
   const data = [{
     id: 1,
@@ -18,7 +17,6 @@ describe('ListsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     service = jasmine.createSpyObj('ListService', ['getLists$', 'createList$']);
     service.getLists$.and.returnValue(of(data));
     service.createList$.and.returnValue(of(data));
