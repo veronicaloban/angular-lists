@@ -10,7 +10,7 @@ import { ListInterface } from '../list';
   styleUrls: ['./edit-list-form.component.scss'],
 })
 export class EditListFormComponent {
-  public name = '';
+  public name = this.data.listRef.name;
   public previousName = this.data.listRef.name;
 
   constructor(
