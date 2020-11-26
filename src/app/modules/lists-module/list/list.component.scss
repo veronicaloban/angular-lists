@@ -32,3 +32,8 @@
     background-color: rgb(220, 220, 239);
   }
 }
+
+::ng-deep .mat-menu-panel {
+  position: absolute;
+  right: 0;
+}
