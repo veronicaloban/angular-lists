@@ -53,8 +53,8 @@ describe('CreateNewListComponent', () => {
 
   it('should close the dialog form when Create button is clicked AND the name is at least 1 character long', () => {
     component.name = 'First';
-    const createButton = debugElement.query(By.css('.create-list__create'));
 
+    const createButton = debugElement.query(By.css('.create-list__create'));
     createButton.triggerEventHandler('click', null);
 
     expect(mockDialogRef.close.calls.count()).toBe(1, 'dialog closed');
@@ -63,8 +63,8 @@ describe('CreateNewListComponent', () => {
   it('should NOT close the dialog form when Create button is clicked AND the name is NOT at least 1 character long',
     () => {
       component.name = '';
-      const createButton = debugElement.query(By.css('.create-list__create'));
 
+      const createButton = debugElement.query(By.css('.create-list__create'));
       createButton.triggerEventHandler('click', null);
 
       expect(mockDialogRef.close.calls.count()).toBe(0, 'dialog is not closed');

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ListInterface } from '../list';
 import { ListsService } from '../lists.service';
@@ -9,13 +9,10 @@ import { EditListFormComponent } from '../edit-list-form/edit-list-form.componen
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   @Input() public list: ListInterface;
 
   constructor(private listsService: ListsService, private editDialog: MatDialog) {}
-
-  public ngOnInit(): void {
-  }
 
   public get listProgress(): number {
     return (this.list.completed * 100) / this.list.total;

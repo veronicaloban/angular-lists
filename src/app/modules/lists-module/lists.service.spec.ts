@@ -64,6 +64,7 @@ describe('ListsService', () => {
       listsStore.splice(deletedListIndex, 1);
       listsBehaviorSubj.next(listsStore);
     });
+
     lists.subscribe((res) => expect(res.length).toBe(0));
   });
 
