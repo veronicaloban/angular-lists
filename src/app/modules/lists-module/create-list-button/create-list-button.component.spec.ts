@@ -33,6 +33,7 @@ describe('CreateListButtonComponent', () => {
 
   it('should open Dialog when + button is clicked', () => {
     spyOn(dialog, 'open').and.callThrough();
+
     const button = debugElement.query(By.css('button'));
 
     button.triggerEventHandler('click', null);

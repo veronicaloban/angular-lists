@@ -1,0 +1,17 @@
+<div class="edit-list">
+  <div mat-dialog-content>
+    <h3 class="edit-list__header">
+      Новое имя для '<span class="edit-list__list-previous-name">{{previousName}}</span>':
+    </h3>
+
+    <mat-form-field>
+      <mat-label>Введите новое имя</mat-label>
+      <input matInput [(ngModel)]="name" required>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="edit-list__cancel" mat-button (click)="onCancel()">Отмена</button>
+    <button class="edit-list__edit" mat-button (click)="onEditList()">Изменить</button>
+  </div>
+</div>

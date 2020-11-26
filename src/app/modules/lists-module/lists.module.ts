@@ -10,9 +10,16 @@ import { ListsService } from './lists.service';
 
 import { ListsRoutingModule } from './lists-routing.module';
 import { ListsMaterialModule } from './lists-material.module';
+import { EditListFormComponent } from './edit-list-form/edit-list-form.component';
 
 @NgModule({
-  declarations: [ListsComponent, ListComponent, CreateListButtonComponent, CreateListFormComponent],
+  declarations: [
+    ListsComponent,
+    ListComponent,
+    CreateListButtonComponent,
+    CreateListFormComponent,
+    EditListFormComponent,
+  ],
   imports: [
     CommonModule,
     ListsRoutingModule,
