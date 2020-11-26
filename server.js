@@ -4,17 +4,16 @@ const router = jsonServer.router('./db.json');
 const middlewares = jsonServer.defaults();
 
 const db = router.db;
+const listsCollection = db.get('lists').value();
+const itemsCollection = db.get('items').value();
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
 
 server.get('/lists', (req, res) => {
-  const listsCollection = db.get('lists').value();
-  const listCollection = db.get('list').value();
-
   listsCollection.forEach((list) => {
-    list.total = listCollection.filter(item => item.listId === list.id).length;
-    list.completed = listCollection.filter(item => item.listId === list.id && item.completed).length;
+    list.total = itemsCollection.filter(item => +item.listId === +list.id).length;
+    list.completed = itemsCollection.filter(item => +item.listId === +list.id && item.isDone).length;
   });
 
   res.jsonp(listsCollection);
@@ -30,10 +29,28 @@ server.post('/lists', (req, res, next) => {
 
 server.use(jsonServer.bodyParser);
 server.put('/lists/:id', (req, res, next) => {
-  const list = db.get('lists').value().find(item => +item.id === +req.params.id);
+  const list = listsCollection.find(item => +item.id === +req.params.id);
 
   req.body.total = list && list.total;
   req.body.completed = list && list.completed;
+
+  next();
+});
+
+server.use(jsonServer.bodyParser);
+server.post('/items', (req, res, next) => {
+  req.body.listId = +req.query.listId;
+  req.body.isDone = false;
+
+  next();
+});
+
+server.use(jsonServer.bodyParser);
+server.put('/items/:id', (req, res, next) => {
+  const item = itemsCollection.find(item => +item.id === +req.params.id);
+
+  req.body.listId = +req.query.listId;
+  req.body.isDone = item && item.isDone;
 
   next();
 });
