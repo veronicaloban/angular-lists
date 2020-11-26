@@ -40,7 +40,6 @@ export class ListComponent {
   }
 
   public openListItems(): void {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate([`list/${this.list.id}`]);
   }
 }

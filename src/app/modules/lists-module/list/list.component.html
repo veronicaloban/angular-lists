@@ -6,7 +6,7 @@
   </mat-card-content>
 
   <div class="list__menu-button">
-    <button mat-icon-button [matMenuTriggerFor]="menu" onclick="event.stopPropagation()">
+    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
       <mat-icon>more_vert</mat-icon>
     </button>
 
