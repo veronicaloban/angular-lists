@@ -38,6 +38,6 @@ describe('CreateListButtonComponent', () => {
 
     button.triggerEventHandler('click', null);
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(dialog.open).toHaveBeenCalledWith();// TODO С bind тест падает
+    expect(dialog.open).toHaveBeenCalled();// TODO С bind тест падает
   });
 });

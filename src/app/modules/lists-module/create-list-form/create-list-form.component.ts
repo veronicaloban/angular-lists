@@ -10,7 +10,10 @@ import { ListsService } from '../lists.service';
 export class CreateListFormComponent {
   public name = '';
 
-  constructor(public dialogRef: MatDialogRef<CreateListFormComponent>, public listsService: ListsService) { }
+  constructor(
+    public dialogRef: MatDialogRef<CreateListFormComponent>,
+    public listsService: ListsService,
+  ) { }
 
   public closeDialog(): void {
     this.dialogRef.close();

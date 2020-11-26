@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ListInterface } from '../list';
 import { ListsService } from '../lists.service';
 import { EditListFormComponent } from '../edit-list-form/edit-list-form.component';
@@ -12,7 +13,11 @@ import { EditListFormComponent } from '../edit-list-form/edit-list-form.componen
 export class ListComponent {
   @Input() public list: ListInterface;
 
-  constructor(private listsService: ListsService, private editDialog: MatDialog) {}
+  constructor(
+    private listsService: ListsService,
+    private editDialog: MatDialog,
+    private router: Router,
+  ) {}
 
   public get listProgress(): number {
     return (this.list.completed * 100) / this.list.total;
@@ -32,5 +37,10 @@ export class ListComponent {
 
   public deleteList(): void {
     this.listsService.deleteList$(this.list);
+  }
+
+  public openListItems(): void {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.router.navigate([`list/${this.list.id}`]);
   }
 }

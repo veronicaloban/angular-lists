@@ -1,4 +1,4 @@
-<mat-card class="list">
+<mat-card class="list" (click)="openListItems()">
   <mat-card-title class="list__name">{{list.name}}</mat-card-title>
 
   <mat-card-content class="list__progress" [class.list__all-items-done]="isEverythingDone">
@@ -6,7 +6,7 @@
   </mat-card-content>
 
   <div class="list__menu-button">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu" onclick="event.stopPropagation()">
       <mat-icon>more_vert</mat-icon>
     </button>
 
