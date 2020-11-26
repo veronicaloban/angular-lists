@@ -73,6 +73,7 @@ describe('EditListFormComponent', () => {
     component.name = 'First';
 
     const createButton = debugElement.query(By.css('.edit-list__edit'));
+
     createButton.triggerEventHandler('click', null);
 
     expect(mockDialogRef.close.calls.count()).toBe(1, 'dialog closed');
@@ -82,6 +83,7 @@ describe('EditListFormComponent', () => {
     component.name = '';
 
     const createButton = debugElement.query(By.css('.edit-list__edit'));
+
     createButton.triggerEventHandler('click', null);
 
     expect(mockDialogRef.close.calls.count()).toBe(0, 'dialog is not closed');

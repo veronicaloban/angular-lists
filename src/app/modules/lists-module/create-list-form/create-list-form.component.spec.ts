@@ -55,6 +55,7 @@ describe('CreateNewListComponent', () => {
     component.name = 'First';
 
     const createButton = debugElement.query(By.css('.create-list__create'));
+
     createButton.triggerEventHandler('click', null);
 
     expect(mockDialogRef.close.calls.count()).toBe(1, 'dialog closed');
@@ -65,6 +66,7 @@ describe('CreateNewListComponent', () => {
       component.name = '';
 
       const createButton = debugElement.query(By.css('.create-list__create'));
+
       createButton.triggerEventHandler('click', null);
 
       expect(mockDialogRef.close.calls.count()).toBe(0, 'dialog is not closed');

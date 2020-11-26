@@ -59,8 +59,10 @@ describe('ListsService', () => {
 
   it('should delete a list from the server and array, and pass it to the observable', () => {
     const shouldBeDeleted = data[0];
+
     service.deleteList$().subscribe(() => {
       const deletedListIndex = listsStore.indexOf(shouldBeDeleted);
+
       listsStore.splice(deletedListIndex, 1);
       listsBehaviorSubj.next(listsStore);
     });
@@ -72,6 +74,7 @@ describe('ListsService', () => {
     service.putList$().subscribe((resData) => {
       const toBeUpdatedList = listsStore.find((item) => item.id === resData.id);
       const toBeUpdatedListIndex = listsStore.indexOf(toBeUpdatedList);
+
       listsStore.splice(toBeUpdatedListIndex, 1, resData);
       listsBehaviorSubj.next(listsStore);
     });

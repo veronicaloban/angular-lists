@@ -30,6 +30,7 @@ export class ListsService {
   public deleteList$(list: ListInterface): void {
     this.http.delete<ListInterface>(`${this.url}/${list.id}`).subscribe(() => {
       const deletedListIndex = this.listsStore.indexOf(list);
+
       this.listsStore.splice(deletedListIndex, 1);
       this.listsBehaviorSubj.next(this.listsStore);
     });
@@ -39,6 +40,7 @@ export class ListsService {
     this.http.put<ListInterface>(`${this.url}/${id}`, data).subscribe((resData) => {
       const toBeUpdatedList = this.listsStore.find((item) => item.id === resData.id);
       const toBeUpdatedListIndex = this.listsStore.indexOf(toBeUpdatedList);
+
       this.listsStore.splice(toBeUpdatedListIndex, 1, resData);
     });
   }
