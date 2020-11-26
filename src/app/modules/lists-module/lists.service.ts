@@ -14,10 +14,10 @@ export class ListsService {
   constructor(private http: HttpClient) {}
 
   public getLists$(): void {
-    this.http.get<ListInterface[]>(this.url).subscribe((res) => res.forEach((data: ListInterface) => {
-      this.listsStore.push(data);
+    this.http.get<ListInterface[]>(this.url).subscribe((res) => {
+      this.listsStore = res;
       this.listsBehaviorSubj.next(this.listsStore);
-    }));
+    });
   }
 
   public createList$(data: { name: string }): void {

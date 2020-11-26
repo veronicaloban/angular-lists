@@ -2,12 +2,18 @@ import {
   ComponentFixture, TestBed, fakeAsync, tick,
 } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Location } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 import { ListComponent } from './list.component';
 import { ListsMaterialModule } from '../lists-material.module';
 import { ListsService } from '../lists.service';
+
+import { routes } from '../../../app-routing.module';
+import { ListItemsModule } from '../../list-items-module/list-items.module';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -17,13 +23,22 @@ describe('ListComponent', () => {
     id: 1, name: 'First', total: 10, completed: 5,
   };
   const list2 = {
-    id: 1, name: 'Second', total: 10, completed: 10,
+    id: 2, name: 'Second', total: 10, completed: 10,
   };
+
+  let location: Location;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ListComponent],
-      imports: [ListsMaterialModule, HttpClientModule, BrowserAnimationsModule],
+      imports: [
+        ListsMaterialModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes(routes),
+        ListItemsModule,
+      ],
       providers: [ListsService, MatDialog],
     })
       .compileComponents().then(() => {
@@ -31,6 +46,10 @@ describe('ListComponent', () => {
         component = fixture.componentInstance;
         component.list = list1;
         dialog = <MatDialog>TestBed.get(MatDialog);
+
+        router = TestBed.get(Router);
+        location = TestBed.get(Location);
+        router.initialNavigation();
         fixture.detectChanges();
       });
   });
@@ -78,5 +97,12 @@ describe('ListComponent', () => {
     tick();
     // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(dialog.open).toHaveBeenCalled();// TODO С bind тест падает
+  }));
+
+  it('should navigate to /list/1', fakeAsync(() => {
+    router.navigate([`list/${list1.id}`]);
+    tick();
+
+    expect(location.path()).toBe('/list/1');
   }));
 });

@@ -66,6 +66,7 @@
         "class-methods-use-this": "off",
         "lines-between-class-members": "off",
         "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/explicit-member-accessibility": ["error",
           {
             "accessibility": "explicit",

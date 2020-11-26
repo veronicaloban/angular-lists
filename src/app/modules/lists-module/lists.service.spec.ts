@@ -40,12 +40,12 @@ describe('ListsService', () => {
   });
 
   it('should get data from the server, push it to the array, and pass it to the observable', () => {
-    service.getLists$().subscribe((res: ListInterface[]) => res.forEach((resData: ListInterface) => {
-      listsStore.push(resData);
+    service.getLists$().subscribe((res: ListInterface[]) => {
+      listsStore = res;
       listsBehaviorSubj.next(listsStore);
-    }));
+    });
 
-    lists.subscribe((res) => expect(res.length).toBe(2));
+    lists.subscribe((res) => expect(res.length).toBe(1));
   });
 
   it('should post data to the server, push it to the array, and pass it to the observable', () => {
