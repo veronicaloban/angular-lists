@@ -40,6 +40,6 @@ export class ListComponent {
   }
 
   public openListItems(): void {
-    this.router.navigate([`list/${this.list.id}`]);
+    this.router.navigate([`list/${this.list.id}`], { state: { name: this.list.name } });
   }
 }

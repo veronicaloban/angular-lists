@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ListItemsComponent } from './list-items.component';
@@ -25,6 +25,26 @@ describe('ListItemsComponent', () => {
     snapshot: { params: { id: 1 } },
   };
 
+  type RouterExtras = {
+    extras: {
+      state: {
+        name: string,
+      },
+    },
+  };
+
+  const fakeRouter = {
+    getCurrentNavigation(): RouterExtras {
+      return {
+        extras: {
+          state: {
+            name: 'First',
+          },
+        },
+      };
+    },
+  };
+
   const service = jasmine.createSpyObj('ItemsService', ['getItems$']);
 
   beforeEach(async () => {
@@ -35,6 +55,7 @@ describe('ListItemsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: fakeActivatedRoute },
         { provide: ListItemsService, useValue: service },
+        { provide: Router, useValue: fakeRouter },
       ],
     })
       .compileComponents();
@@ -57,6 +78,6 @@ describe('ListItemsComponent', () => {
   it('should receive data via Lists Service', () => {
     items$ = serviceItems$;
 
-    items$.subscribe((data) => { expect(data.length).toBe(1); });
+    items$.subscribe((data) => expect(data.length).toBe(1));
   });
 });
