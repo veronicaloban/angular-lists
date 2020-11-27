@@ -11,7 +11,7 @@ import { ItemInterface } from '../item';
   styleUrls: ['./list-items.component.scss'],
 })
 export class ListItemsComponent implements OnInit {
-  public listId: number;
+  public listId: string;
   public listName: string;
   public items$: Observable<ItemInterface[]>;
 
@@ -24,7 +24,7 @@ export class ListItemsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.listId = this.route.snapshot.params.id as number;
+    this.listId = this.route.snapshot.params.id as string;
     this.items$ = this.listItemsService.items$;
     this.listItemsService.getItems$(this.listId);
   }
