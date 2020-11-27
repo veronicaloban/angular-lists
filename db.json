@@ -1,36 +1,54 @@
 {
   "lists": [
     {
-      "id": 1,
-      "name": "Первый",
-      "total": 10,
-      "completed": 5
+      "name": "Третий",
+      "total": 3,
+      "completed": 2,
+      "id": 3
     },
     {
-      "id": 2,
-      "name": "Второй",
-      "total": 20,
-      "completed": 10
+      "name": "Fourth",
+      "total": 0,
+      "completed": 0,
+      "id": 4
     }
   ],
   "list": [
     {
-      "id": 1,
-      "name": "Вложенный 1",
+      "name": "Item1",
+      "listId": 3,
+      "completed": false,
+      "id": 1
+    },
+    {
+      "name": "Item2",
+      "listId": 3,
       "completed": true,
-      "listId": 1
+      "id": 2
     },
     {
-      "id": 2,
-      "name": "Вложенный 2",
-      "completed": false,
-      "listId": 1
+      "name": "Item3",
+      "listId": 3,
+      "completed": true,
+      "id": 3
     },
     {
-      "id": 3,
-      "name": "Вложенный 3",
+      "name": "Item1",
+      "listId": 4,
       "completed": false,
-      "listId": 2
+      "id": 1
+    },
+    {
+      "name": "Item2",
+      "listId": 4,
+      "completed": true,
+      "id": 2
+    },
+    {
+      "name": "Item3",
+      "listId": 4,
+      "completed": true,
+      "id": 3
     }
   ]
 }
