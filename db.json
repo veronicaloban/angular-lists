@@ -1,0 +1,42 @@
+{
+  "lists": [
+    {
+      "name": "First",
+      "total": 1,
+      "completed": 1,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Второй",
+      "total": 2,
+      "completed": 2
+    },
+    {
+      "name": "Третий",
+      "total": 0,
+      "completed": 0,
+      "id": 3
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "name": "Вложенный 1",
+      "isDone": true,
+      "listId": 1
+    },
+    {
+      "id": 2,
+      "name": "Вложенный 1",
+      "isDone": true,
+      "listId": 2
+    },
+    {
+      "id": 3,
+      "name": "Вложенный 1",
+      "isDone": true,
+      "listId": 2
+    }
+  ]
+}
