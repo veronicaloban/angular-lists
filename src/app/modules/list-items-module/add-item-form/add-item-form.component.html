@@ -1,0 +1,15 @@
+<div class="add-item">
+  <div mat-dialog-content>
+    <h3 class="add-item__header">Новый пункт списка</h3>
+
+    <mat-form-field>
+      <mat-label>Введите название пункта</mat-label>
+      <input matInput [(ngModel)]="name" required>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="add-item__cancel" mat-button (click)="onCancel()">Отмена</button>
+    <button class="add-item__add" mat-button (click)="onAddItem()">Создать</button>
+  </div>
+</div>

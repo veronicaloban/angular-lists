@@ -1,3 +1,24 @@
-<mat-card class="item">
-  <mat-card-title>{{item.name}}</mat-card-title>
+<mat-card class="item" [class.completedItem]="item.isDone">
+
+  <mat-card-title class="item__name">{{item.name}}</mat-card-title>
+
+  <div class="item__state">
+    <mat-checkbox [checked]="item.isDone"></mat-checkbox>
+  </div>
+
+  <div class="item__menu-button">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openEditForm()">
+        <span>Редактировать</span>
+      </button>
+
+      <button mat-menu-item (click)="onDeleteItem()">
+        <span>Удалить</span>
+      </button>
+    </mat-menu>
+  </div>
 </mat-card>

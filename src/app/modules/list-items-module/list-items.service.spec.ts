@@ -6,37 +6,113 @@ import { ItemInterface } from './item';
 describe('ListItemsService', () => {
   let service;
 
-  const data: ItemInterface[] = [{
-    id: 1,
-    name: 'Item1',
+  const reseivedData: ItemInterface[] = [{
+    id: 2,
+    name: 'Item2',
     isDone: true,
-    listId: 5,
+    listId: 1,
   }];
 
-  let itemsBehaviorSubj: BehaviorSubject<ItemInterface[]>;
-  let items: Observable<ItemInterface[]>;
-  let listsStore: ItemInterface[];
+  const item: ItemInterface = {
+    id: 3,
+    name: 'Item3',
+    isDone: false,
+    listId: 1,
+  };
+
+  const updatedItem: ItemInterface = {
+    id: 3,
+    name: 'Item4',
+    isDone: false,
+    listId: 1,
+  };
+
+  let incompletedItemsBehaviorSubj: BehaviorSubject<ItemInterface[]>;
+  let completedItemsBehaviorSubj: BehaviorSubject<ItemInterface[]>;
+  let incompletedItems$: Observable<ItemInterface[]>;
+  let completedItems$: Observable<ItemInterface[]>;
+  let itemsStore;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
 
-    service = jasmine.createSpyObj('ItemsService', ['getItems$']);
-    service.getItems$.and.returnValue(of(data));
+    service = jasmine.createSpyObj('ItemsService', ['getItems$', 'createItem$', 'deleteItem$', 'putItem$']);
+    service.getItems$.and.returnValue(of(reseivedData));
+    service.createItem$.and.returnValue(of(item));
+    service.deleteItem$.and.returnValue(of(item));
+    service.putItem$.and.returnValue(of(updatedItem));
 
-    itemsBehaviorSubj = new BehaviorSubject<ItemInterface[]>([]);
-    items = itemsBehaviorSubj.asObservable();
+    incompletedItemsBehaviorSubj = new BehaviorSubject<ItemInterface[]>([]);
+    completedItemsBehaviorSubj = new BehaviorSubject<ItemInterface[]>([]);
+
+    incompletedItems$ = incompletedItemsBehaviorSubj.asObservable();
+    completedItems$ = completedItemsBehaviorSubj.asObservable();
+
+    itemsStore = {
+      incompletedItems: [] as ItemInterface[],
+      completedItems: [] as ItemInterface[],
+    };
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get data from the server, push it to the array, and pass it to the observable', () => {
+  it('should get data from the server, push it to the relevant array, and pass it to the observable', () => {
     service.getItems$().subscribe((res: ItemInterface[]) => {
-      listsStore = res;
-      itemsBehaviorSubj.next(listsStore);
+      itemsStore.incompletedItems = res.filter((itemObj) => itemObj.isDone === false);
+      itemsStore.completedItems = res.filter((itemObj) => itemObj.isDone === true);
+      incompletedItemsBehaviorSubj.next(itemsStore.incompletedItems);
+      completedItemsBehaviorSubj.next(itemsStore.completedItems);
     });
 
-    items.subscribe((res) => expect(res.length).toBe(1));
+    expect(itemsStore.completedItems.length).toBe(1);
+    expect(itemsStore.incompletedItems.length).toBe(0);
+  });
+
+  it('should post data to the server, push it to the incompletedItems array, and pass it to the observable', () => {
+    service.createItem$().subscribe((res: ItemInterface) => {
+      itemsStore.incompletedItems.push(res);
+      incompletedItemsBehaviorSubj.next(itemsStore.incompletedItems);
+    });
+
+    expect(itemsStore.incompletedItems.length).toBe(1);
+  });
+
+  it('should delete data from the server, and update the store', () => {
+    itemsStore.incompletedItems.push(item);
+
+    service.deleteItem$().subscribe((res: ItemInterface) => {
+      const mergedStoreArray = itemsStore.incompletedItems
+        .concat(itemsStore.completedItems);
+      const deletedItemIndex = mergedStoreArray.indexOf(res);
+
+      mergedStoreArray.splice(deletedItemIndex, 1);
+      itemsStore.incompletedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === false);
+      itemsStore.completedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === true);
+      incompletedItemsBehaviorSubj.next(itemsStore.incompletedItems);
+      completedItemsBehaviorSubj.next(itemsStore.completedItems);
+    });
+
+    expect(itemsStore.incompletedItems.length).toBe(0);
+  });
+
+  it('should change the name of the item on the server, and update the store', () => {
+    itemsStore.incompletedItems.push(item);
+
+    service.putItem$().subscribe((res: ItemInterface) => {
+      const mergedStoreArray = itemsStore.incompletedItems
+        .concat(itemsStore.completedItems);
+      const toBeUpdatedItem = mergedStoreArray.find((itemObj) => item.id === res.id);
+      const toBeUpdatedItemIndex = mergedStoreArray.indexOf(toBeUpdatedItem);
+
+      mergedStoreArray.splice(toBeUpdatedItemIndex, 1, res);
+      itemsStore.incompletedItems = mergedStoreArray.filter((itemObj) => item.isDone === false);
+      itemsStore.completedItems = mergedStoreArray.filter((itemObj) => item.isDone === true);
+      incompletedItemsBehaviorSubj.next(itemsStore.incompletedItems);
+      completedItemsBehaviorSubj.next(itemsStore.completedItems);
+    });
+
+    expect(itemsStore.incompletedItems[0].name).toBe('Item4');
   });
 });
