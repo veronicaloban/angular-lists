@@ -3,11 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import { AddItemButtonComponent } from './add-item-button.component';
+import { CreateItemButtonComponent } from './create-item-button.component';
 
 describe('AddItemButtonComponent', () => {
-  let component: AddItemButtonComponent;
-  let fixture: ComponentFixture<AddItemButtonComponent>;
+  let component: CreateItemButtonComponent;
+  let fixture: ComponentFixture<CreateItemButtonComponent>;
   let debugElement: DebugElement;
 
   const dialog = {
@@ -16,14 +16,14 @@ describe('AddItemButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddItemButtonComponent],
+      declarations: [CreateItemButtonComponent],
       providers: [{ provide: MatDialog, useValue: dialog }],
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddItemButtonComponent);
+    fixture = TestBed.createComponent(CreateItemButtonComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     fixture.detectChanges();

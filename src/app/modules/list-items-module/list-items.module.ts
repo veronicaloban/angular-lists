@@ -7,18 +7,18 @@ import { ListItemsMaterialModule } from './list-items-material.module';
 
 import { ItemComponent } from './item/item.component';
 import { ListItemsComponent } from './list-items/list-items.component';
-import { AddItemButtonComponent } from './add-item-button/add-item-button.component';
+import { CreateItemButtonComponent } from './create-item-button/create-item-button.component';
 
 import { ListItemsService } from './list-items.service';
-import { AddItemFormComponent } from './add-item-form/add-item-form.component';
+import { CreateItemFormComponent } from './create-item-form/create-item-form.component';
 import { EditItemFormComponent } from './edit-item-form/edit-item-form.component';
 
 @NgModule({
   declarations: [
     ListItemsComponent,
     ItemComponent,
-    AddItemButtonComponent,
-    AddItemFormComponent,
+    CreateItemButtonComponent,
+    CreateItemFormComponent,
     EditItemFormComponent,
   ],
   imports: [

@@ -83,8 +83,7 @@ describe('ListItemsService', () => {
     itemsStore.incompletedItems.push(item);
 
     service.deleteItem$().subscribe((res: ItemInterface) => {
-      const mergedStoreArray = itemsStore.incompletedItems
-        .concat(itemsStore.completedItems);
+      const mergedStoreArray = [...itemsStore.incompletedItems, ...itemsStore.completedItems];
       const deletedItemIndex = mergedStoreArray.indexOf(res);
 
       mergedStoreArray.splice(deletedItemIndex, 1);
@@ -101,14 +100,13 @@ describe('ListItemsService', () => {
     itemsStore.incompletedItems.push(item);
 
     service.putItem$().subscribe((res: ItemInterface) => {
-      const mergedStoreArray = itemsStore.incompletedItems
-        .concat(itemsStore.completedItems);
-      const toBeUpdatedItem = mergedStoreArray.find((itemObj) => item.id === res.id);
+      const mergedStoreArray = [...itemsStore.incompletedItems, ...itemsStore.completedItems];
+      const toBeUpdatedItem = mergedStoreArray.find((itemObj) => itemObj.id === res.id);
       const toBeUpdatedItemIndex = mergedStoreArray.indexOf(toBeUpdatedItem);
 
       mergedStoreArray.splice(toBeUpdatedItemIndex, 1, res);
-      itemsStore.incompletedItems = mergedStoreArray.filter((itemObj) => item.isDone === false);
-      itemsStore.completedItems = mergedStoreArray.filter((itemObj) => item.isDone === true);
+      itemsStore.incompletedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === false);
+      itemsStore.completedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === true);
       incompletedItemsBehaviorSubj.next(itemsStore.incompletedItems);
       completedItemsBehaviorSubj.next(itemsStore.completedItems);
     });

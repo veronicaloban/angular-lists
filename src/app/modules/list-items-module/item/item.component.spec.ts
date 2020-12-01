@@ -54,7 +54,7 @@ describe('ItemComponent', () => {
     component.openEditForm();
     fixture.detectChanges();
     tick();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
+
     expect(dialog.open).toHaveBeenCalled();// TODO С bind тест падает
   }));
 });

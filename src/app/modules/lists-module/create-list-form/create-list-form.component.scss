@@ -19,10 +19,11 @@ button[mat-button] {
   font-size: 20px
 }
 
-/*to override* the default styles of the form*/
+/*to override* the default styles of the form
 ::ng-deep .cdk-overlay-pane {
   max-width: 100%;
   width: 400px;
   height: 200px;
   position: relative;
 }
+*/

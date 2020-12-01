@@ -38,8 +38,7 @@ export class ListItemsService {
 
   public deleteItem$(item: ItemInterface): void {
     this.http.delete<ItemInterface>(`${this.url}/${item.id}`).subscribe(() => {
-      const mergedStoreArray = this.itemsStore.incompletedItems
-        .concat(this.itemsStore.completedItems);
+      const mergedStoreArray = [...this.itemsStore.incompletedItems, ...this.itemsStore.completedItems];
       const deletedItemIndex = mergedStoreArray.indexOf(item);
 
       mergedStoreArray.splice(deletedItemIndex, 1);
@@ -52,8 +51,7 @@ export class ListItemsService {
 
   public putItem$(item: ItemInterface, data: { name: string }, listId: string): void {
     this.http.put<ItemInterface>(`${this.url}/${item.id}`, data, { params: { listId } }).subscribe((resData) => {
-      const mergedStoreArray = this.itemsStore.incompletedItems
-        .concat(this.itemsStore.completedItems);
+      const mergedStoreArray = [...this.itemsStore.incompletedItems, ...this.itemsStore.completedItems];
       const toBeUpdatedItem = mergedStoreArray.find((itemObj) => itemObj.id === resData.id);
       const toBeUpdatedItemIndex = mergedStoreArray.indexOf(toBeUpdatedItem);
 
