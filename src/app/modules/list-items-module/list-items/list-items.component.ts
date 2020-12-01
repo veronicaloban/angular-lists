@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { itemsSortingFunction } from '../items-sorting-function';
+import { sortingFunction } from '../../sorting-function';
 
 import { ListItemsService } from '../list-items.service';
 import { ItemInterface } from '../item';
@@ -29,9 +29,9 @@ export class ListItemsComponent implements OnInit {
   public ngOnInit(): void {
     this.listId = this.route.snapshot.params.id as string;
     this.incompletedItems$ = this.listItemsService.incompletedItems$
-      .pipe(tap((results) => results.sort(itemsSortingFunction)));
+      .pipe(tap((results) => results.sort(sortingFunction((item: ItemInterface) => item.name))));
     this.completedItems$ = this.listItemsService.completedItems$
-      .pipe(tap((results) => results.sort(itemsSortingFunction)));
+      .pipe(tap((results) => results.sort(sortingFunction((item: ItemInterface) => item.name))));
     this.listItemsService.getItems$(this.listId);
   }
 }
