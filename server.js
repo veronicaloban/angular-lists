@@ -55,6 +55,12 @@ server.put('/items/:id', (req, res, next) => {
   next();
 });
 
+server.get('/list-name', (req, res) => {
+  const list = listsCollection.find(list => +list.id === +req.query.listId);
+
+  res.jsonp(list && list.name || '');
+});
+
 // To handle POST, PUT and PATCH you need to use a body-parser
 // You can use the one used by JSON Server
 // server.use(jsonServer.bodyParser);
