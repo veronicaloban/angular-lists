@@ -4,6 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { SearchPipe } from '../../../helpers/search.pipe';
 import { ListItemsComponent } from './list-items.component';
 import { ItemInterface } from '../item';
 import { ListItemsService } from '../list-items.service';
@@ -42,7 +43,7 @@ describe('ListItemsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ListItemsComponent],
+      declarations: [ListItemsComponent, SearchPipe],
       providers: [
         { provide: ActivatedRoute, useValue: fakeActivatedRoute },
         { provide: ListItemsService, useValue: service },

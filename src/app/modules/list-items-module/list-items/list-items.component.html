@@ -1,10 +1,17 @@
 <h1 class="list-items__title">Список '{{ listName$ | async }}'</h1>
 
-<div *ngFor="let incompletedItem of incompletedItems$ | async">
+<div class="list-items_search">
+  <mat-form-field appearance="outline">
+    <mat-label>Искать</mat-label>
+    <input [(ngModel)]="searcher" matInput>
+  </mat-form-field>
+</div>
+
+<div *ngFor="let incompletedItem of incompletedItems$ | async | search: searcher">
   <app-item [item]="incompletedItem" [listId]="listId"></app-item>
 </div>
 
-<div *ngFor="let completedItem of completedItems$ | async">
+<div *ngFor="let completedItem of completedItems$ | async | search: searcher">
   <app-item [item]="completedItem" [listId]="listId"></app-item>
 </div>
 

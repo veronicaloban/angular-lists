@@ -13,6 +13,7 @@ import { ItemInterface } from '../item';
   styleUrls: ['./list-items.component.scss'],
 })
 export class ListItemsComponent implements OnInit {
+  public searcher: string;
   public listId: string;
   public listName$: Observable<string>;
   public completedItems$: Observable<ItemInterface[]>;

@@ -3,3 +3,27 @@
   margin: 16px 0;
   font-size: 32px;
 }
+
+.list-items_search {
+  margin: 10px;
+}
+
+::ng-deep .list-items_search {
+  .mat-form-field-outline {
+    color: black !important;
+    background-color: white;
+  }
+
+  .mat-focused .mat-form-field-outline {
+    color: #ffd740 !important;
+    background-color: white;
+  }
+
+  .mat-focused .mat-form-field-label {
+   color: #ffd740 !important;
+  }
+
+  .mat-form-field {
+    width: 250px;
+  }
+}

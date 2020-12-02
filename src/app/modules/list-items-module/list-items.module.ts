@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { SearchPipe } from '../../helpers/search.pipe';
 import { ListItemsRoutingModule } from './list-items-routing.module';
 import { ListItemsMaterialModule } from './list-items-material.module';
 
@@ -20,6 +20,7 @@ import { EditItemFormComponent } from './edit-item-form/edit-item-form.component
     CreateItemButtonComponent,
     CreateItemFormComponent,
     EditItemFormComponent,
+    SearchPipe,
   ],
   imports: [
     CommonModule,
