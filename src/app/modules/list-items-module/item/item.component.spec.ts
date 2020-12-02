@@ -3,7 +3,9 @@ import {
 } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckbox } from '@angular/material/checkbox';
 
+import { By } from '@angular/platform-browser';
 import { ListItemsMaterialModule } from '../list-items-material.module';
 import { ItemComponent } from './item.component';
 import { ListItemsService } from '../list-items.service';
@@ -55,6 +57,17 @@ describe('ItemComponent', () => {
     fixture.detectChanges();
     tick();
 
-    expect(dialog.open).toHaveBeenCalled();// TODO С bind тест падает
+    expect(dialog.open).toHaveBeenCalled();
+  }));
+
+  it('should shange the checkbox state, when it is clicked', fakeAsync(() => {
+    spyOn(component, 'changeState').and.callThrough();
+    const checkbox = fixture.debugElement.query(By.directive(MatCheckbox));
+
+    checkbox.triggerEventHandler('change', { checked: true });
+
+    fixture.detectChanges();
+
+    expect(component.changeState).toHaveBeenCalled();
   }));
 });

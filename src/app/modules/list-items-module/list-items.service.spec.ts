@@ -20,10 +20,17 @@ describe('ListItemsService', () => {
     listId: 1,
   };
 
-  const updatedItem: ItemInterface = {
+  const itemUpdatedName: ItemInterface = {
     id: 3,
     name: 'Item4',
     isDone: false,
+    listId: 1,
+  };
+
+  const itemUpdatedIsDone: ItemInterface = {
+    id: 3,
+    name: 'Item3',
+    isDone: true,
     listId: 1,
   };
 
@@ -36,11 +43,14 @@ describe('ListItemsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
 
-    service = jasmine.createSpyObj('ItemsService', ['getItems$', 'createItem$', 'deleteItem$', 'putItem$']);
+    service = jasmine.createSpyObj(
+      'ItemsService', ['getItems$', 'createItem$', 'deleteItem$', 'putItem$', 'patchItem$'],
+    );
     service.getItems$.and.returnValue(of(reseivedData));
     service.createItem$.and.returnValue(of(item));
     service.deleteItem$.and.returnValue(of(item));
-    service.putItem$.and.returnValue(of(updatedItem));
+    service.putItem$.and.returnValue(of(itemUpdatedName));
+    service.patchItem$.and.returnValue(of(itemUpdatedIsDone));
 
     incompletedItemsBehaviorSubj = new BehaviorSubject<ItemInterface[]>([]);
     completedItemsBehaviorSubj = new BehaviorSubject<ItemInterface[]>([]);
@@ -112,5 +122,23 @@ describe('ListItemsService', () => {
     });
 
     expect(itemsStore.incompletedItems[0].name).toBe('Item4');
+  });
+
+  it('should change the isDone property of the item on the server and update the store', () => {
+    itemsStore.incompletedItems.push(item);
+    service.patchItem$().subscribe((res: ItemInterface) => {
+      const mergedStoreArray = [...itemsStore.incompletedItems, ...itemsStore.completedItems];
+      const toBeUpdatedItem = mergedStoreArray.find((itemObj) => itemObj.id === res.id);
+      const toBeUpdatedItemIndex = mergedStoreArray.indexOf(toBeUpdatedItem);
+
+      mergedStoreArray.splice(toBeUpdatedItemIndex, 1, res);
+      itemsStore.incompletedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === false);
+      itemsStore.completedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === true);
+      incompletedItemsBehaviorSubj.next(itemsStore.incompletedItems);
+      completedItemsBehaviorSubj.next(itemsStore.completedItems);
+    });
+
+    expect(itemsStore.completedItems.length).toBe(1);
+    expect(itemsStore.incompletedItems.length).toBe(0);
   });
 });

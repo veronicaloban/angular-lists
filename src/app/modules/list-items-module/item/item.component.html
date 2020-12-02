@@ -3,7 +3,7 @@
   <mat-card-title class="item__name">{{item.name}}</mat-card-title>
 
   <div class="item__state">
-    <mat-checkbox [(ngModel)]="item.isDone"></mat-checkbox>
+    <mat-checkbox [(ngModel)]="item.isDone" (change)="changeState($event)"></mat-checkbox>
   </div>
 
   <div class="item__menu-button">

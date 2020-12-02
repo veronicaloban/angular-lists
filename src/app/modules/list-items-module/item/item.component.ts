@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+
 import { ItemInterface } from '../item';
 import { ListItemsService } from '../list-items.service';
 import { EditItemFormComponent } from '../edit-item-form/edit-item-form.component';
@@ -17,6 +19,10 @@ export class ItemComponent {
 
   public onDeleteItem(): void {
     this.listItemsService.deleteItem$(this.item);
+  }
+
+  public changeState($event: MatCheckboxChange): void {
+    this.listItemsService.patchItem$(this.item, { isDone: $event.checked });
   }
 
   public openEditForm(): void {

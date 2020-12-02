@@ -1,4 +1,4 @@
-<h1 class="list-items__title">Список '{{ listName }}'</h1>
+<h1 class="list-items__title">Список '{{ listName$ | async }}'</h1>
 
 <div *ngFor="let incompletedItem of incompletedItems$ | async">
   <app-item [item]="incompletedItem" [listId]="listId"></app-item>

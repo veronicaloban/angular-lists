@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ItemInterface } from './item';
 
@@ -29,6 +29,10 @@ export class ListItemsService {
     });
   }
 
+  public getListName$(listId: string): Observable<ItemInterface[]> {
+    return this.http.get<ItemInterface[]>(`${environment.apiUrl}/list-name`, { params: { listId } });
+  }
+
   public createItem$(listId: string, data: { name: string }): void {
     this.http.post<ItemInterface>(this.url, data, { params: { listId } }).subscribe((resData) => {
       this.itemsStore.incompletedItems.push(resData);
@@ -51,6 +55,20 @@ export class ListItemsService {
 
   public putItem$(item: ItemInterface, data: { name: string }, listId: string): void {
     this.http.put<ItemInterface>(`${this.url}/${item.id}`, data, { params: { listId } }).subscribe((resData) => {
+      const mergedStoreArray = [...this.itemsStore.incompletedItems, ...this.itemsStore.completedItems];
+      const toBeUpdatedItem = mergedStoreArray.find((itemObj) => itemObj.id === resData.id);
+      const toBeUpdatedItemIndex = mergedStoreArray.indexOf(toBeUpdatedItem);
+
+      mergedStoreArray.splice(toBeUpdatedItemIndex, 1, resData);
+      this.itemsStore.incompletedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === false);
+      this.itemsStore.completedItems = mergedStoreArray.filter((itemObj) => itemObj.isDone === true);
+      this.incompletedItemsBehaviorSubj.next(this.itemsStore.incompletedItems);
+      this.completedItemsBehaviorSubj.next(this.itemsStore.completedItems);
+    });
+  }
+
+  public patchItem$(item: ItemInterface, data: { isDone: boolean }): void {
+    this.http.patch<ItemInterface>(`${this.url}/${item.id}`, data).subscribe((resData) => {
       const mergedStoreArray = [...this.itemsStore.incompletedItems, ...this.itemsStore.completedItems];
       const toBeUpdatedItem = mergedStoreArray.find((itemObj) => itemObj.id === resData.id);
       const toBeUpdatedItemIndex = mergedStoreArray.indexOf(toBeUpdatedItem);
