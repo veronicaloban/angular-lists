@@ -5,8 +5,10 @@ export const sortingFunction = <T extends { name: string }>(objectA: T, objectB:
   if (nameA < nameB) {
     return -1;
   }
+
   if (nameA > nameB) {
     return 1;
   }
+
   return 0;
 };

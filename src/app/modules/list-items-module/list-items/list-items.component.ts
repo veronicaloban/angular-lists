@@ -14,7 +14,7 @@ import { ItemInterface } from '../item';
 })
 export class ListItemsComponent implements OnInit {
   public listId: string;
-  public listName$: Observable<ItemInterface[]>;
+  public listName$: Observable<string>;
   public completedItems$: Observable<ItemInterface[]>;
   public incompletedItems$: Observable<ItemInterface[]>;
 

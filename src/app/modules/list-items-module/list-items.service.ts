@@ -29,8 +29,8 @@ export class ListItemsService {
     });
   }
 
-  public getListName$(listId: string): Observable<ItemInterface[]> {
-    return this.http.get<ItemInterface[]>(`${environment.apiUrl}/list-name`, { params: { listId } });
+  public getListName$(listId: string): Observable<string> {
+    return this.http.get<string>(`${environment.apiUrl}/list-name`, { params: { listId } });
   }
 
   public createItem$(listId: string, data: { name: string }): void {
