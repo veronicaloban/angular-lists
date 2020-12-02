@@ -1,5 +1,11 @@
 <h1 class="list-items__title">Список '{{ listName }}'</h1>
 
-<div *ngFor="let item of items$ | async">
-  <app-item [item]="item"></app-item>
+<div *ngFor="let incompletedItem of incompletedItems$ | async">
+  <app-item [item]="incompletedItem" [listId]="listId"></app-item>
 </div>
+
+<div *ngFor="let completedItem of completedItems$ | async">
+  <app-item [item]="completedItem" [listId]="listId"></app-item>
+</div>
+
+<app-create-item-button [listId]="listId"></app-create-item-button>

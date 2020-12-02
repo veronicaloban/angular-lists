@@ -12,9 +12,17 @@ describe('ListItemsComponent', () => {
   let component: ListItemsComponent;
   let fixture: ComponentFixture<ListItemsComponent>;
 
-  let items$: Observable<ItemInterface[]>;
-  let serviceItems$: Observable<ItemInterface[]>;
-  const dataArray = [{
+  let completedItems$: Observable<ItemInterface[]>;
+  let incompletedItems$: Observable<ItemInterface[]>;
+
+  const completedItemsArray = [{
+    id: 1,
+    name: 'First',
+    isDone: true,
+    listId: 1,
+  }];
+
+  const incompletedItemsArray = [{
     id: 1,
     name: 'First',
     isDone: true,
@@ -45,7 +53,7 @@ describe('ListItemsComponent', () => {
     },
   };
 
-  const service = jasmine.createSpyObj('ItemsService', ['getItems$']);
+  const service = jasmine.createSpyObj('ItemsService', ['getItems$', 'completedItems$', 'incompletedItems$']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -65,8 +73,8 @@ describe('ListItemsComponent', () => {
     fixture = TestBed.createComponent(ListItemsComponent);
     component = fixture.componentInstance;
 
-    service.getItems$.and.returnValue(of(dataArray));
-    serviceItems$ = of(dataArray);
+    service.completedItems$ = of(completedItemsArray);
+    service.incompletedItems$ = of(incompletedItemsArray);
 
     fixture.detectChanges();
   });
@@ -76,8 +84,10 @@ describe('ListItemsComponent', () => {
   });
 
   it('should receive data via Lists Service', () => {
-    items$ = serviceItems$;
+    completedItems$ = service.completedItems$;
+    incompletedItems$ = service.incompletedItems$;
 
-    items$.subscribe((data) => expect(data.length).toBe(1));
+    completedItems$.subscribe((data) => expect(data.length).toBe(1));
+    incompletedItems$.subscribe((data) => expect(data.length).toBe(1));
   });
 });

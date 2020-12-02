@@ -1,18 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListItemsComponent } from './list-items/list-items.component';
+import { FormsModule } from '@angular/forms';
+
 import { ListItemsRoutingModule } from './list-items-routing.module';
-import { ItemComponent } from './item/item.component';
 import { ListItemsMaterialModule } from './list-items-material.module';
 
+import { ItemComponent } from './item/item.component';
+import { ListItemsComponent } from './list-items/list-items.component';
+import { CreateItemButtonComponent } from './create-item-button/create-item-button.component';
+
 import { ListItemsService } from './list-items.service';
+import { CreateItemFormComponent } from './create-item-form/create-item-form.component';
+import { EditItemFormComponent } from './edit-item-form/edit-item-form.component';
 
 @NgModule({
-  declarations: [ListItemsComponent, ItemComponent],
+  declarations: [
+    ListItemsComponent,
+    ItemComponent,
+    CreateItemButtonComponent,
+    CreateItemFormComponent,
+    EditItemFormComponent,
+  ],
   imports: [
     CommonModule,
     ListItemsRoutingModule,
     ListItemsMaterialModule,
+    FormsModule,
   ],
   providers: [ListItemsService],
 })
