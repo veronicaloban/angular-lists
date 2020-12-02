@@ -9,6 +9,7 @@ import { CreateItemFormComponent } from '../create-item-form/create-item-form.co
 })
 export class CreateItemButtonComponent {
   @Input() private listId: string;
+
   constructor(public dialog: MatDialog) { }
 
   public openAddListForm(): void {
