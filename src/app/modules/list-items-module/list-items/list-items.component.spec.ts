@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SearchPipe } from '../../../helpers/search.pipe';
+import { SearchPipe } from '../../../pipes/search.pipe';
 import { ListItemsComponent } from './list-items.component';
 import { ItemInterface } from '../item';
 import { ListItemsService } from '../list-items.service';

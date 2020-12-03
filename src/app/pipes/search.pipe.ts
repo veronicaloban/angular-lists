@@ -13,7 +13,7 @@ export class SearchPipe implements PipeTransform {
       return items;
     }
 
-    const regExp = new RegExp(`^${searchString}.*$`, 'i');
+    const regExp = new RegExp(searchString, 'i');
 
     return items.filter((item) => regExp.test(item.name));
   }
