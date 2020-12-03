@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
 import { ListInterface } from '../list';
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 import { EditListFormComponent } from '../edit-list-form/edit-list-form.component';
 
 @Component({
@@ -14,7 +15,7 @@ export class ListComponent {
   @Input() public list: ListInterface;
 
   constructor(
-    private listsService: ListsService,
+    private storeService: StoreService,
     private editDialog: MatDialog,
     private router: Router,
   ) {}
@@ -36,7 +37,7 @@ export class ListComponent {
   }
 
   public deleteList(): void {
-    this.listsService.deleteList$(this.list);
+    this.storeService.deleteList$(this.list);
   }
 
   public openListItems(): void {

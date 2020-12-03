@@ -9,7 +9,6 @@ import { ItemComponent } from './item/item.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { CreateItemButtonComponent } from './create-item-button/create-item-button.component';
 
-import { ListItemsService } from './list-items.service';
 import { CreateItemFormComponent } from './create-item-form/create-item-form.component';
 import { EditItemFormComponent } from './edit-item-form/edit-item-form.component';
 
@@ -28,6 +27,5 @@ import { EditItemFormComponent } from './edit-item-form/edit-item-form.component
     ListItemsMaterialModule,
     FormsModule,
   ],
-  providers: [ListItemsService],
 })
 export class ListItemsModule { }

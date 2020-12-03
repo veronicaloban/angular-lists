@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SearchPipe } from '../../../pipes/search.pipe';
 import { ListItemsComponent } from './list-items.component';
 import { ItemInterface } from '../item';
-import { ListItemsService } from '../list-items.service';
+import { StoreService } from '../../../store.service';
 
 describe('ListItemsComponent', () => {
   let component: ListItemsComponent;
@@ -46,7 +46,7 @@ describe('ListItemsComponent', () => {
       declarations: [ListItemsComponent, SearchPipe],
       providers: [
         { provide: ActivatedRoute, useValue: fakeActivatedRoute },
-        { provide: ListItemsService, useValue: service },
+        { provide: StoreService, useValue: service },
       ],
     })
       .compileComponents();

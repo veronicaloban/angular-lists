@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import { ListItemsService } from '../list-items.service';
+import { StoreService } from '../../../store.service';
 import { CreateItemFormComponent } from './create-item-form.component';
 
 describe('AddItemFormComponent', () => {
@@ -37,7 +37,7 @@ describe('AddItemFormComponent', () => {
           useValue: MOCK_MAT_DIALOG_DATA,
         },
         {
-          provide: ListItemsService,
+          provide: StoreService,
           useValue: mockService,
         }],
     })

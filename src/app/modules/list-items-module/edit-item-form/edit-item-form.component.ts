@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ListItemsService } from '../list-items.service';
+import { StoreService } from '../../../store.service';
 import { ItemInterface } from '../item';
 
 @Component({
@@ -14,7 +14,7 @@ export class EditItemFormComponent {
 
   constructor(
     public dialogRef: MatDialogRef<EditItemFormComponent>,
-    private listItemsService: ListItemsService,
+    private storeService: StoreService,
     @Inject(MAT_DIALOG_DATA) public data: {item: ItemInterface, currentListId: string },
   ) { }
 
@@ -28,7 +28,7 @@ export class EditItemFormComponent {
 
   public onEditItem(): void {
     if (this.name.length !== 0) {
-      this.listItemsService.putItem$(this.data.item, { name: this.name }, this.data.currentListId);
+      this.storeService.putItem$(this.data.item, { name: this.name }, this.data.currentListId);
       this.closeDialog();
     }
   }

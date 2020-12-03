@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ListItemsService } from '../list-items.service';
+import { StoreService } from '../../../store.service';
 
 @Component({
   selector: 'app-create-item-form',
@@ -12,7 +12,7 @@ export class CreateItemFormComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CreateItemFormComponent>,
-    private listItemsService: ListItemsService,
+    private storeService: StoreService,
     @Inject(MAT_DIALOG_DATA) public data: { currentListId: string },
   ) { }
 
@@ -26,7 +26,7 @@ export class CreateItemFormComponent {
 
   public onCreateItem(): void {
     if (this.name.length !== 0) {
-      this.listItemsService.createItem$(this.data.currentListId, { name: this.name });
+      this.storeService.createItem$(this.data.currentListId, { name: this.name });
       this.closeDialog();
     }
   }

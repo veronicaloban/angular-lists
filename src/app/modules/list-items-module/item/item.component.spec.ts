@@ -2,13 +2,14 @@ import {
   ComponentFixture, TestBed, fakeAsync, tick,
 } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckbox } from '@angular/material/checkbox';
-
 import { By } from '@angular/platform-browser';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListItemsMaterialModule } from '../list-items-material.module';
+
 import { ItemComponent } from './item.component';
-import { ListItemsService } from '../list-items.service';
+import { StoreService } from '../../../store.service';
 
 describe('ItemComponent', () => {
   let component: ItemComponent;
@@ -22,7 +23,7 @@ describe('ItemComponent', () => {
       declarations: [ItemComponent],
       imports: [ListItemsMaterialModule, BrowserAnimationsModule],
       providers: [{
-        provide: ListItemsService, useValue: service,
+        provide: StoreService, useValue: service,
       }],
     })
       .compileComponents();

@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { ListComponent } from './list.component';
 import { ListsMaterialModule } from '../lists-material.module';
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 
 import { routes } from '../../../app-routing.module';
 import { ListItemsModule } from '../../list-items-module/list-items.module';
@@ -39,7 +39,7 @@ describe('ListComponent', () => {
         RouterTestingModule.withRoutes(routes),
         ListItemsModule,
       ],
-      providers: [ListsService, MatDialog],
+      providers: [StoreService, MatDialog],
     })
       .compileComponents().then(() => {
         fixture = TestBed.createComponent(ListComponent);
@@ -95,7 +95,7 @@ describe('ListComponent', () => {
     component.openEditDialog();
     fixture.detectChanges();
     tick();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
+
     expect(dialog.open).toHaveBeenCalled();// TODO С bind тест падает
   }));
 

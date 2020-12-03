@@ -7,12 +7,8 @@
   </mat-form-field>
 </div>
 
-<div *ngFor="let incompletedItem of incompletedItems$ | async | search: searcher">
-  <app-item [item]="incompletedItem" [listId]="listId"></app-item>
-</div>
-
-<div *ngFor="let completedItem of completedItems$ | async | search: searcher">
-  <app-item [item]="completedItem" [listId]="listId"></app-item>
+<div *ngFor="let item of items$ | async | search: searcher">
+  <app-item [item]="item" [listId]="listId"></app-item>
 </div>
 
 <app-create-item-button [listId]="listId"></app-create-item-button>

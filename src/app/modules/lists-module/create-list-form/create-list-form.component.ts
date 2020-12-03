@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 
 @Component({
   selector: 'app-create-list-form',
@@ -12,7 +12,7 @@ export class CreateListFormComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CreateListFormComponent>,
-    public listsService: ListsService,
+    private storeService: StoreService,
   ) { }
 
   public closeDialog(): void {
@@ -25,7 +25,7 @@ export class CreateListFormComponent {
 
   public onCreateList(): void {
     if (this.name.length !== 0) {
-      this.listsService.createList$({ name: this.name });
+      this.storeService.createList$({ name: this.name });
       this.closeDialog();
     }
   }

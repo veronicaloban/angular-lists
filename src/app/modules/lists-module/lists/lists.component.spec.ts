@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 import { ListsComponent } from './lists.component';
 import { ListInterface } from '../list';
 
@@ -26,7 +26,7 @@ describe('ListsComponent', () => {
       declarations: [ListsComponent],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [HttpClientModule],
-      providers: [ListsService],
+      providers: [StoreService],
     })
       .compileComponents().then(() => {
         fixture = TestBed.createComponent(ListsComponent);

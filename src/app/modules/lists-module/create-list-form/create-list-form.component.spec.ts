@@ -1,32 +1,40 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatDialogRef } from '@angular/material/dialog';
 import { CreateListFormComponent } from './create-list-form.component';
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 
 describe('CreateNewListComponent', () => {
   let component: CreateListFormComponent;
   let fixture: ComponentFixture<CreateListFormComponent>;
   let debugElement: DebugElement;
+
   let mockDialogRef;
+  let mockService;
 
   beforeEach(async () => {
     mockDialogRef = {
       close: jasmine.createSpy('close'),
     };
+
+    mockService = jasmine.createSpyObj('ItemsService', ['createList$']);
+
     await TestBed.configureTestingModule({
       declarations: [CreateListFormComponent],
-      imports: [HttpClientModule, BrowserAnimationsModule],
+      imports: [BrowserAnimationsModule],
       providers: [
         {
           provide: MatDialogRef,
           useValue: mockDialogRef,
         },
-        ListsService],
+        {
+          provide: StoreService,
+          useValue: mockService,
+        },
+      ],
     })
       .compileComponents();
   });

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 import { ListInterface } from '../list';
 
 @Component({
@@ -15,7 +15,7 @@ export class EditListFormComponent {
 
   constructor(
     private editDialogRef: MatDialogRef<EditListFormComponent>,
-    private listsService: ListsService,
+    private storeService: StoreService,
     @Inject(MAT_DIALOG_DATA) public data: { listRef: ListInterface },
   ) { }
 
@@ -25,7 +25,7 @@ export class EditListFormComponent {
 
   public onEditList(): void {
     if (this.name.length !== 0) {
-      this.listsService.putList$(this.data.listRef.id, { name: this.name });
+      this.storeService.putList$(this.data.listRef.id, { name: this.name });
       this.closeDialog();
     }
   }

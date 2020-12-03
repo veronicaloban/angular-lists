@@ -1,21 +1,20 @@
 import {
-  ComponentFixture, TestBed, fakeAsync, tick,
+  ComponentFixture, TestBed,
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
-import { ListsService } from '../lists.service';
+import { StoreService } from '../../../store.service';
 import { EditListFormComponent } from './edit-list-form.component';
-import { ListsMaterialModule } from '../lists-material.module';
 
 describe('EditListFormComponent', () => {
   let component: EditListFormComponent;
   let fixture: ComponentFixture<EditListFormComponent>;
   let debugElement: DebugElement;
   let mockDialogRef;
+  let mockService;
+
   const MOCK_MAT_DIALOG_DATA = {
     listRef: {
       id: 1,
@@ -29,13 +28,12 @@ describe('EditListFormComponent', () => {
     mockDialogRef = {
       close: jasmine.createSpy('close'),
     };
+
+    mockService = jasmine.createSpyObj('ItemsService', ['putList$']);
+
     await TestBed.configureTestingModule({
       declarations: [EditListFormComponent],
-      imports: [
-        HttpClientModule,
-        BrowserAnimationsModule,
-        ListsMaterialModule,
-      ],
+
       providers: [
         {
           provide: MatDialogRef,
@@ -45,7 +43,11 @@ describe('EditListFormComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: MOCK_MAT_DIALOG_DATA,
         },
-        ListsService],
+        {
+          provide: StoreService,
+          useValue: mockService,
+        },
+      ],
     })
       .compileComponents();
   });
@@ -54,6 +56,7 @@ describe('EditListFormComponent', () => {
     fixture = TestBed.createComponent(EditListFormComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
+
     fixture.detectChanges();
   });
 
@@ -61,13 +64,13 @@ describe('EditListFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should close dialog when close button clicked', fakeAsync(() => {
-    component.onCancel();
-    fixture.detectChanges();
-    tick();
+  it('should close dialog when close button clicked', () => {
+    const cancelButton = debugElement.query(By.css('.edit-list__cancel'));
+
+    cancelButton.triggerEventHandler('click', null);
 
     expect(mockDialogRef.close.calls.count()).toBe(1, 'dialog closed');
-  }));
+  });
 
   it('should close dialog when edit button clicked and name.length is more then 0', () => {
     component.name = 'First';
