@@ -1,7 +1,9 @@
 <h1 class="lists__title">{{title}}</h1>
 
 <div *ngFor="let list of lists$ | async">
-  <app-list [list]="list"></app-list>
+  <app-list [list]="list"
+  (deleteList)="onDeleteList($event)"
+  (editList)="onEditList($event)"></app-list>
 </div>
 
-<app-create-list-button></app-create-list-button>
+<app-create-list-button (createList)="onCreateList($event)"></app-create-list-button>

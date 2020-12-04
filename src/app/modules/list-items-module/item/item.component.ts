@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component, Input, EventEmitter, Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { ItemInterface } from '../item';
-import { StoreService } from '../../../store.service';
 import { EditItemFormComponent } from '../edit-item-form/edit-item-form.component';
 
 @Component({
@@ -14,23 +15,32 @@ import { EditItemFormComponent } from '../edit-item-form/edit-item-form.componen
 export class ItemComponent {
   @Input() public item: ItemInterface;
   @Input() public listId: string;
+  @Output() public deleteItem = new EventEmitter<ItemInterface>();
+  @Output() public changeItem = new EventEmitter<{ item: ItemInterface, isDone: boolean }>();
+  @Output() public changeName = new EventEmitter<{ name: string, item: ItemInterface}>();
+  public name: string;
 
-  constructor(private storeService: StoreService, private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {}
 
   public onDeleteItem(): void {
-    this.storeService.deleteItem$(this.item);
+    this.deleteItem.emit(this.item);
   }
 
   public changeState($event: MatCheckboxChange): void {
-    this.storeService.patchItem$(this.item, { isDone: $event.checked });
+    this.changeItem.emit({ item: this.item, isDone: $event.checked });
   }
 
   public openEditForm(): void {
-    this.dialog.open(EditItemFormComponent, {
+    const dialogRef = this.dialog.open(EditItemFormComponent, {
       data: {
-        item: this.item,
-        currentListId: this.listId,
+        newName: this.name,
+        previousName: this.item.name,
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      this.name = result;
+      if (this.name !== undefined) this.changeName.emit({ name: this.name, item: this.item });
     });
   }
 }

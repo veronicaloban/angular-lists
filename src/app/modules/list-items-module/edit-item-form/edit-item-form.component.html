@@ -1,17 +1,17 @@
 <div class="edit-item">
   <div mat-dialog-content>
     <h3 class="edit-item__header">
-      Переименовать пункт '<span class="edit-item__item-previous-name">{{previousName}}</span>'
+      Переименовать пункт '<span class="edit-item__item-previous-name">{{data.previousName}}</span>'
     </h3>
 
     <mat-form-field>
       <mat-label>Введите название</mat-label>
-      <input matInput [(ngModel)]="name" required>
+      <input matInput [(ngModel)]="data.newName" required>
     </mat-form-field>
   </div>
 
   <div mat-dialog-actions>
     <button class="edit-item__cancel" mat-button (click)="onCancel()">Отмена</button>
-    <button class="edit-item__edit" mat-button (click)="onEditItem()">Изменить</button>
+    <button class="edit-item__edit" mat-button [disabled]="!data.newName" [mat-dialog-close]="data.newName">Изменить</button>
   </div>
 </div>

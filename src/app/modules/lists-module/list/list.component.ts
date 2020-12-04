@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ListInterface } from '../list';
-import { StoreService } from '../../../store.service';
 import { EditListFormComponent } from '../edit-list-form/edit-list-form.component';
 
 @Component({
@@ -13,9 +14,11 @@ import { EditListFormComponent } from '../edit-list-form/edit-list-form.componen
 })
 export class ListComponent {
   @Input() public list: ListInterface;
+  @Output() public deleteList = new EventEmitter<ListInterface>();
+  @Output() public editList = new EventEmitter<{ listId: number, name: string }>();
+  public newName: string;
 
   constructor(
-    private storeService: StoreService,
     private editDialog: MatDialog,
     private router: Router,
   ) {}
@@ -29,15 +32,25 @@ export class ListComponent {
   }
 
   public openEditDialog(): void {
-    this.editDialog.open(EditListFormComponent, {
+    const dialogRef = this.editDialog.open(EditListFormComponent, {
       data: {
         listRef: this.list,
+        newName: this.newName,
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      this.newName = result;
+      if (this.newName !== undefined) this.editList.emit({ listId: this.list.id, name: this.newName });
     });
   }
 
-  public deleteList(): void {
-    this.storeService.deleteList$(this.list);
+  public onDeleteList(): void {
+    this.deleteList.emit(this.list);
+  }
+
+  public onEditList(): void {
+    this.editList.emit({ listId: this.list.id, name: this.newName });
   }
 
   public openListItems(): void {

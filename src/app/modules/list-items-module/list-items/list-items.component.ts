@@ -26,4 +26,20 @@ export class ListItemsComponent implements OnInit {
     this.listName$ = this.storeService.getListName$(this.listId);
     this.items$ = this.storeService.getItems$(this.listId);
   }
+
+  public onDeleteItem($event: ItemInterface): void {
+    this.storeService.deleteItem$($event);
+  }
+
+  public onChangeItem($event: { item: ItemInterface, isDone: boolean }): void {
+    this.storeService.patchItem$($event.item, { isDone: $event.isDone });
+  }
+
+  public onChangeName($event: {item: ItemInterface, name: string}): void {
+    this.storeService.putItem$($event.item, { name: $event.name }, this.listId);
+  }
+
+  public onCreateItem($event: string): void {
+    this.storeService.createItem$(this.listId, { name: $event });
+  }
 }

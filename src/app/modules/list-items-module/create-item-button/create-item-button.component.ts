@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateItemFormComponent } from '../create-item-form/create-item-form.component';
 
@@ -8,15 +8,19 @@ import { CreateItemFormComponent } from '../create-item-form/create-item-form.co
   styleUrls: ['./create-item-button.component.scss'],
 })
 export class CreateItemButtonComponent {
-  @Input() private listId: string;
+  @Output() public createItem = new EventEmitter<string>();
 
   constructor(public dialog: MatDialog) { }
 
   public openAddListForm(): void {
-    this.dialog.open(CreateItemFormComponent, {
+    const dialogRef = this.dialog.open(CreateItemFormComponent, {
       data: {
-        currentListId: this.listId,
+        name: '',
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) this.createItem.emit(result);
     });
   }
 }

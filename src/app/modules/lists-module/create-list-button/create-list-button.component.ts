@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateListFormComponent } from '../create-list-form/create-list-form.component';
 
@@ -8,9 +8,19 @@ import { CreateListFormComponent } from '../create-list-form/create-list-form.co
   styleUrls: ['./create-list-button.component.scss'],
 })
 export class CreateListButtonComponent {
+  @Output() public createList = new EventEmitter<string>();
+
   constructor(public dialog: MatDialog) { }
 
   public openCreateListForm(): void {
-    this.dialog.open(CreateListFormComponent);
+    const dialogRef = this.dialog.open(CreateListFormComponent, {
+      data: {
+        name: '',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) this.createList.emit(result);
+    });
   }
 }

@@ -8,7 +8,11 @@
 </div>
 
 <div *ngFor="let item of items$ | async | search: searcher">
-  <app-item [item]="item" [listId]="listId"></app-item>
+  <app-item [item]="item" [listId]="listId"
+  (deleteItem)="onDeleteItem($event)"
+  (changeItem)="onChangeItem($event)"
+  (changeName)="onChangeName($event)">
+</app-item>
 </div>
 
-<app-create-item-button [listId]="listId"></app-create-item-button>
+<app-create-item-button (createItem)='onCreateItem($event)'></app-create-item-button>
