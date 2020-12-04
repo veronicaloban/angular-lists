@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -13,17 +13,9 @@ describe('ListItemsComponent', () => {
   let component: ListItemsComponent;
   let fixture: ComponentFixture<ListItemsComponent>;
 
-  let completedItems$: Observable<ItemInterface[]>;
-  let incompletedItems$: Observable<ItemInterface[]>;
+  let items$: Observable<ItemInterface[]>;
 
-  const completedItemsArray = [{
-    id: 1,
-    name: 'First',
-    isDone: true,
-    listId: 1,
-  }];
-
-  const incompletedItemsArray = [{
+  const itemsArray = [{
     id: 1,
     name: 'First',
     isDone: true,
@@ -35,8 +27,8 @@ describe('ListItemsComponent', () => {
   };
 
   const service = jasmine.createSpyObj(
-    'ItemsService',
-    ['getItems$', 'getListName$', 'completedItems$', 'incompletedItems$'],
+    'ApiService',
+    ['getItems$', 'getListName$', 'deleteItem$', 'patchItem$', 'putItem$', 'createItem$'],
   );
 
   beforeEach(async () => {
@@ -55,9 +47,7 @@ describe('ListItemsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ListItemsComponent);
     component = fixture.componentInstance;
-
-    service.completedItems$ = of(completedItemsArray);
-    service.incompletedItems$ = of(incompletedItemsArray);
+    service.getItems$.and.returnValue(of(itemsArray));
 
     fixture.detectChanges();
   });
@@ -67,10 +57,31 @@ describe('ListItemsComponent', () => {
   });
 
   it('should receive data via Lists Service', () => {
-    completedItems$ = service.completedItems$;
-    incompletedItems$ = service.incompletedItems$;
-
-    completedItems$.subscribe((data) => expect(data.length).toBe(1));
-    incompletedItems$.subscribe((data) => expect(data.length).toBe(1));
+    items$ = service.getItems$();
+    items$.subscribe((items) => expect(items.length).toBe(1));
   });
+
+  it('should call the deleleItems$ method in the store service', fakeAsync(() => {
+    component.onDeleteItem(itemsArray[0]);
+
+    expect(service.deleteItem$).toHaveBeenCalled();
+  }));
+
+  it('should call the patchItem$ method in the store service', fakeAsync(() => {
+    component.onChangeItem({ item: itemsArray[0], isDone: true });
+
+    expect(service.patchItem$).toHaveBeenCalled();
+  }));
+
+  it('should call the putItem$ method in the store service', fakeAsync(() => {
+    component.onChangeName({ item: itemsArray[0], name: 'item' });
+
+    expect(service.putItem$).toHaveBeenCalled();
+  }));
+
+  it('should call the createItem$ method in the store service', fakeAsync(() => {
+    component.onCreateItem('name');
+
+    expect(service.createItem$).toHaveBeenCalled();
+  }));
 });

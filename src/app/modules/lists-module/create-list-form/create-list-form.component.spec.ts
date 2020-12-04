@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CreateListFormComponent } from './create-list-form.component';
-import { StoreService } from '../../../store.service';
 
 describe('CreateNewListComponent', () => {
   let component: CreateListFormComponent;
@@ -13,15 +12,16 @@ describe('CreateNewListComponent', () => {
   let debugElement: DebugElement;
 
   let mockDialogRef;
-  let mockService;
+  let MOCK_MAT_DIALOG_DATA;
 
   beforeEach(async () => {
     mockDialogRef = {
-      close: jasmine.createSpy('close'),
+      close: (): void => {},
     };
 
-    mockService = jasmine.createSpyObj('ItemsService', ['createList$']);
-
+    MOCK_MAT_DIALOG_DATA = {
+      name: 'newList',
+    };
     await TestBed.configureTestingModule({
       declarations: [CreateListFormComponent],
       imports: [BrowserAnimationsModule],
@@ -31,8 +31,8 @@ describe('CreateNewListComponent', () => {
           useValue: mockDialogRef,
         },
         {
-          provide: StoreService,
-          useValue: mockService,
+          provide: MAT_DIALOG_DATA,
+          useValue: MOCK_MAT_DIALOG_DATA,
         },
       ],
     })
@@ -52,31 +52,11 @@ describe('CreateNewListComponent', () => {
   });
 
   it('should close the dialog form when Cancel button is clicked', () => {
+    spyOn(mockDialogRef, 'close').and.callThrough();
     const cancelButton = debugElement.query(By.css('.create-list__cancel'));
 
     cancelButton.triggerEventHandler('click', null);
 
-    expect(mockDialogRef.close).toHaveBeenCalled();
-  });
-
-  it('should close the dialog form when Create button is clicked AND the name is at least 1 character long', () => {
-    component.name = 'First';
-
-    const createButton = debugElement.query(By.css('.create-list__create'));
-
-    createButton.triggerEventHandler('click', null);
-
     expect(mockDialogRef.close.calls.count()).toBe(1, 'dialog closed');
   });
-
-  it('should NOT close the dialog form when Create button is clicked AND the name is NOT at least 1 character long',
-    () => {
-      component.name = '';
-
-      const createButton = debugElement.query(By.css('.create-list__create'));
-
-      createButton.triggerEventHandler('click', null);
-
-      expect(mockDialogRef.close.calls.count()).toBe(0, 'dialog is not closed');
-    });
 });

@@ -1,20 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Observable, of } from 'rxjs';
+
 import { MatDialog } from '@angular/material/dialog';
 import { CreateListButtonComponent } from './create-list-button.component';
-import { ListsMaterialModule } from '../lists-material.module';
 
 describe('CreateListButtonComponent', () => {
   let component: CreateListButtonComponent;
   let fixture: ComponentFixture<CreateListButtonComponent>;
   let debugElement: DebugElement;
-  let dialog: MatDialog;
+
+  const matDialogMock = {
+    open: (): { afterClosed(): Observable<string> } => ({
+      afterClosed: (): Observable<string> => of('list'),
+    }),
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CreateListButtonComponent],
-      imports: [ListsMaterialModule],
+      providers: [{ provide: MatDialog, useValue: matDialogMock }],
     })
       .compileComponents();
   });
@@ -23,7 +29,7 @@ describe('CreateListButtonComponent', () => {
     fixture = TestBed.createComponent(CreateListButtonComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    dialog = <MatDialog>TestBed.get(MatDialog);
+
     fixture.detectChanges();
   });
 
@@ -32,12 +38,18 @@ describe('CreateListButtonComponent', () => {
   });
 
   it('should open Dialog when + button is clicked', () => {
-    spyOn(dialog, 'open').and.callThrough();
+    spyOn(matDialogMock, 'open').and.callThrough();
 
     const button = debugElement.query(By.css('button'));
 
     button.triggerEventHandler('click', null);
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(dialog.open).toHaveBeenCalled();// TODO С bind тест падает
+
+    expect(matDialogMock.open).toHaveBeenCalled();// TODO С bind тест падает
+  });
+
+  it('should return a name when closed', () => {
+    const dialogRef = matDialogMock.open();
+
+    dialogRef.afterClosed().subscribe((result) => expect(result).toBe('list'));
   });
 });

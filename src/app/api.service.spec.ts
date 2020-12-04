@@ -3,7 +3,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-// import { environment } from 'src/environments/environment';
 
 import { ApiService } from './api.service';
 
@@ -133,7 +132,7 @@ describe('ApiService', () => {
       listId: 1,
     };
 
-    service.createItem$('1', { name: 'item2' }).subscribe((list) => expect(list[0].id).toEqual(1));
+    service.createItem$('1', { name: 'item2' }).subscribe((item) => expect(item.name).toEqual('item2'));
 
     const req = httpMock.expectOne('http://localhost:3000/items?listId=1');
 
