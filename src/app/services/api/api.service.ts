@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
-import { ListInterface } from './modules/lists-module/list';
-import { ItemInterface } from './modules/list-items-module/item';
+import { ListInterface } from '../../modules/lists-module/list';
+import { ItemInterface } from '../../modules/list-items-module/item';
 
 @Injectable({
   providedIn: 'root',

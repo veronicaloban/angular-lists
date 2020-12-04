@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { StoreService } from '../../../store.service';
+import { StoreService } from '../../../services/store/store.service';
 import { ListsComponent } from './lists.component';
 import { ListInterface } from '../list';
 

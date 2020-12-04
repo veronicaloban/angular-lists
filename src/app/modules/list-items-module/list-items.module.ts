@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SearchPipe } from '../../pipes/search.pipe';
+import { SearchPipe } from '../../pipes/search/search.pipe';
 import { ListItemsRoutingModule } from './list-items-routing.module';
 import { ListItemsMaterialModule } from './list-items-material.module';
 

@@ -58,7 +58,6 @@ describe('ListComponent', () => {
           total: 10,
           completed: 5,
         };
-        // dialog = <MatDialog>TestBed.get(MatDialog);
 
         router = TestBed.get(Router);
         location = TestBed.get(Location);

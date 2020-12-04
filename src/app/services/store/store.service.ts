@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
-import { ListInterface } from './modules/lists-module/list';
-import { ItemInterface } from './modules/list-items-module/item';
-import { ApiService } from './api.service';
+import { ListInterface } from '../../modules/lists-module/list';
+import { ItemInterface } from '../../modules/list-items-module/item';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root',

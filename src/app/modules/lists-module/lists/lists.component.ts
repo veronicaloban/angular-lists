@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { StoreService } from '../../../store.service';
+import { StoreService } from '../../../services/store/store.service';
 import { ListInterface } from '../list';
 
 @Component({

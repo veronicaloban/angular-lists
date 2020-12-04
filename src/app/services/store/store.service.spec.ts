@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { of, BehaviorSubject } from 'rxjs';
 
 import { StoreService } from './store.service';
-import { ApiService } from './api.service';
+import { ApiService } from '../api/api.service';
 
-import { ListInterface } from './modules/lists-module/list';
-import { ItemInterface } from './modules/list-items-module/item';
+import { ListInterface } from '../../modules/lists-module/list';
+import { ItemInterface } from '../../modules/list-items-module/item';
 
 describe('StoreService', () => {
   let service = jasmine.createSpyObj(
