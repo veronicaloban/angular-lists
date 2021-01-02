@@ -44,8 +44,8 @@ export class StoreService {
     });
   }
 
-  public putList$(id: number, data: { name: string }): void {
-    this.apiService.putList$(id, data).subscribe((resData) => {
+  public putList$(data: { id: number, name: string }): void {
+    this.apiService.putList$(data).subscribe((resData) => {
       const listToUpdate = this.appStore.lists.find((val) => val.id === resData.id);
 
       listToUpdate.name = resData.name;

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import {delay} from 'rxjs/operators';
 
 import { ListInterface } from '../../modules/lists-module/list';
 import { ItemInterface } from '../../modules/list-items-module/item';
@@ -16,19 +17,19 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   public getLists$(): Observable<ListInterface[]> {
-    return this.http.get<ListInterface[]>(this.urlLists);
+    return this.http.get<ListInterface[]>(this.urlLists)
   }
 
   public createList$(data: { name: string }): Observable<ListInterface> {
     return this.http.post<ListInterface>(this.urlLists, data);
   }
 
-  public deleteList$(list: ListInterface): Observable<ListInterface> {
-    return this.http.delete<ListInterface>(`${this.urlLists}/${list.id}`);
+  public deleteList$(data: { id: number }): Observable<ListInterface> {
+    return this.http.delete<ListInterface>(`${this.urlLists}/${data.id}`);
   }
 
-  public putList$(id: number, data: { name: string }): Observable<ListInterface> {
-    return this.http.put<ListInterface>(`${this.urlLists}/${id}`, data);
+  public putList$(data: { id: number, name: string }): Observable<ListInterface> {
+    return this.http.put<ListInterface>(`${this.urlLists}/${data.id}`, {name: data.name});
   }
 
   public getItems$(listId: string): Observable<ItemInterface[]> {
